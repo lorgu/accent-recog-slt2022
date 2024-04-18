@@ -145,7 +145,8 @@ class AID(sb.Brain):
             The currently-starting epoch. This is passed
             `None` during the test stage.
         """
-
+        # print batch size
+        print(f"Batch size: {self.hparams.train_dataloader_opts['batch_size']}")
         # Set up statistics trackers for this stage
         self.loss_metric = sb.utils.metric_stats.MetricStats(
             metric=sb.nnet.losses.nll_loss

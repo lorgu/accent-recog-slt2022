@@ -6,14 +6,14 @@
 # #################################
 
 # Seed needs to be set at top of yaml, before objects with parameters are made
-seed: 1986
+seed: 1987
 __set_seed: !apply:torch.manual_seed [!ref <seed>]
 
 # Set up folders for reading from and writing to
 # Dataset will be downloaded to the `data_folder`
 # data_folder: !PLACEHOLDER # e.g. /localscratch/common_voice_kpd/
-data_folder: /remote/idiap.svm/resource.dataset04/CommonVoice
-csv_prepared_folder: data/
+data_folder: /nas/projects/vokquant/data/common_voice_de/downloaded
+csv_prepared_folder: /nas/projects/vokquant/accent-recog-slt2022/data/de
 output_folder: !ref results/ECAPA-TDNN/<seed>
 save_folder: !ref <output_folder>/save
 rir_folder: !ref data/rir_folder
@@ -21,7 +21,7 @@ train_log: !ref <output_folder>/train_log.txt
 device: 'cuda:0'
 skip_prep: True
 # max audio lenth allowed, higher than this is dropped
-avoid_if_longer_than: 10.0
+avoid_if_longer_than: 5 #10.0
 
 # Load pretrained embedding module (from HuggingFace)
 # Note: in this case, we pre-train with the ECAPA-TDNN model trained on voxceleb
@@ -41,9 +41,9 @@ n_mels: 80
 
 # Training Parameters
 sample_rate: 16000
-number_of_epochs: 30
-batch_size: 32
-n_accents: 21
+number_of_epochs: 2 #30
+batch_size: 1 #32
+n_accents: 7 #21
 emb_dim: 192 # dimensionality of the embeddings
 
 # batch type of sorting
@@ -54,7 +54,7 @@ sorting: random # sort the samples
 dynamic_batching: True
 max_batch_len: 600 #
 num_bucket: 200
-num_workers: 4
+num_workers: 1 #4
 
 dynamic_batch_sampler:
    max_batch_len: !ref <max_batch_len>
@@ -62,7 +62,7 @@ dynamic_batch_sampler:
    num_buckets: !ref <num_bucket>
    shuffle_ex: True # if true re-creates batches at each epoch shuffling examples.
    batch_ordering: random
-   max_batch_ex: 128
+   max_batch_ex: 2 #128
 
 # Dataloader options
 # Dataloader options
