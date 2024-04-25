@@ -179,7 +179,7 @@ def dataio_prep(hparams):
         )
         # filtering out recordings with more than max_audio_length allowed
         datasets[dataset] = datasets[dataset].filtered_sorted(
-            key_max_value={"duration": hparaxms["max_audio_length"]},
+            key_max_value={"duration": hparams["max_audio_length"]},
         )
 
     return datasets
@@ -251,8 +251,9 @@ if __name__ == "__main__":
         # create the confusion matrix and plot it
         cm = confusion_matrix(y_true, y_pred, labels=classes)
         disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=classes)
+        disp.rcParams.update({'font.size': 8})
         disp.plot()
-        disp.ax_.tick_params(axis="x", labelrotation=80)
+        disp.ax_.tick_params(axis="x", labelrotation=80, labelsize='smaller')
         disp.figure_.savefig(
             f"{hparams['output_folder']}/conf_mat_{set_name}.png", dpi=300
         )

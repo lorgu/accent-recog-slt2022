@@ -6,7 +6,7 @@
 # #################################
 
 # Seed needs to be set at top of yaml, before objects with parameters are made
-seed: 1987
+seed: 1988
 __set_seed: !apply:torch.manual_seed [!ref <seed>]
 
 # Set up folders for reading from and writing to
@@ -19,9 +19,9 @@ save_folder: !ref <output_folder>/save
 rir_folder: !ref data/rir_folder
 train_log: !ref <output_folder>/train_log.txt
 device: 'cuda:0'
-skip_prep: True
+skip_prep: False
 # max audio lenth allowed, higher than this is dropped
-avoid_if_longer_than: 5 #10.0
+avoid_if_longer_than: 10.0
 
 # Load pretrained embedding module (from HuggingFace)
 # Note: in this case, we pre-train with the ECAPA-TDNN model trained on voxceleb
@@ -41,8 +41,8 @@ n_mels: 80
 
 # Training Parameters
 sample_rate: 16000
-number_of_epochs: 2 #30
-batch_size: 1 #32
+number_of_epochs: 30
+batch_size: 8
 n_accents: 7 #21
 emb_dim: 192 # dimensionality of the embeddings
 
@@ -51,10 +51,10 @@ sorting: random # sort the samples
 
 # This setup works well for V100 32GB GPU, adapts it to your needs.
 # Or turn it off (but training speed will decrease)
-dynamic_batching: True
+dynamic_batching: False
 max_batch_len: 600 #
 num_bucket: 200
-num_workers: 1 #4
+num_workers: 4
 
 dynamic_batch_sampler:
    max_batch_len: !ref <max_batch_len>
@@ -62,7 +62,7 @@ dynamic_batch_sampler:
    num_buckets: !ref <num_bucket>
    shuffle_ex: True # if true re-creates batches at each epoch shuffling examples.
    batch_ordering: random
-   max_batch_ex: 2 #128
+   max_batch_ex: 128
 
 # Dataloader options
 # Dataloader options
@@ -77,10 +77,10 @@ test_dataloader_opts:
     num_workers: !ref <num_workers>
 
 # variable to control whether to apply augmentation or not:
-apply_augmentation: False
+apply_augmentation: True
 
 # variable to control whether to load a pre-trained model
-load_pretrained: True
+load_pretrained: False
 
 # Added noise and reverb come from OpenRIR dataset, automatically
 # downloaded and prepared with this Environmental Corruption class.

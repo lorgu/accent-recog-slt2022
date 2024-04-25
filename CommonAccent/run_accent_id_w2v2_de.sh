@@ -6,7 +6,7 @@
 #
 # SPDX-License-Identifier: MIT-License 
 
-# Base script to fine-tunine a ECAPA-TDNN model on Accent Classification for English
+# Base script to fine-tunine a XLSR-53 (wav2vec2.0) on Accent Classification for English
 #######################################
 # COMMAND LINE OPTIONS,
 # high-level variables for training the model. TrainingArguments (HuggingFace)
@@ -16,31 +16,36 @@ set -euo pipefail
 
 # static vars
 # cmd='/remote/idiap.svm/temp.speech01/jzuluaga/kaldi-jul-2020/egs/wsj/s5/utils/parallel/queue.pl -l gpu -P minerva -l h='vgn[ij]*' -V'
-cmd='none'
+cmd=none
 
 # training vars
-ecapa_tdnn_hub="speechbrain/spkrec-ecapa-voxceleb/embedding_model.ckpt"
-seed="1986"
-apply_augmentation="False"
-max_batch_len=400
-n_accents=7
+
+# model from HF hub, it could be another one, e.g., facebook/wav2vec2-base
+wav2vec2_hub="facebook/wav2vec2-large-xlsr-53"
+seed="2987"
+apply_augmentation="True"
+max_batch_len=50
+batch_size=1
 
 # data folder:
+language_id="de"
 csv_prepared_folder="/nas/projects/vokquant/accent-recog-slt2022/data/de"
-output_dir="/nas/projects/vokquant/accent-recog-slt2022/results/ECAPA-TDNN/DE/spkrec-ecapa-voxceleb"
+# csv_prepared_folder="data/$language_id"
+output_dir="/nas/projects/vokquant/accent-recog-slt2022/results/W2V2/DE/"
+# output_dir="results/W2V2/EN"
 
 # If augmentation is defined:
-if [ "$apply_augmentation" == "True" ]; then
-    output_folder="${output_dir}-augmented/$seed"
+if [ ! "$apply_augmentation" == 'True' ]; then
+    output_folder="$output_dir/$(basename $wav2vec2_hub)-augmented/$seed"
     rir_folder="data/rir_folder/"
 else
-    output_folder="$output_dir/$seed"
+    output_folder="$output_dir/$(basename $wav2vec2_hub)/$seed"
     rir_folder=""
 fi
 
 # configure a GPU to use if we a defined 'CMD'
 if [ ! "$cmd" == 'none' ]; then
-  basename=train_$(basename $ecapa_tdnn_hub)_${apply_augmentation}_augmentation
+  basename=train_$(basename $wav2vec2_hub)_${apply_augmentation}_augmentation
   cmd="$cmd -N ${basename} ${output_folder}/log/train_log"
 else
   cmd=''
@@ -49,16 +54,15 @@ fi
 echo "*** About to start the training ***"
 echo "*** output folder: $output_folder ***"
 
-$cmd python accent_id/train.py accent_id/hparams/train_ecapa_tdnn.yaml \
+$cmd python3 accent_id/train_w2v2.py accent_id/hparams/train_w2v2_xlsr.yaml \
     --seed=$seed \
     --skip_prep="True" \
     --rir_folder="$rir_folder" \
     --csv_prepared_folder=$csv_prepared_folder \
     --apply_augmentation="$apply_augmentation" \
-    --max_batch_len="$max_batch_len" \
+    --max_batch_len="$max_batch_len" --batch_size="$batch_size" \
     --output_folder="$output_folder" \
-    --ecapa_tdnn_hub="$ecapa_tdnn_hub" \
-    --n_accents=$n_accents
+    --wav2vec2_hub="$wav2vec2_hub" 
 
-echo "Done training of $ecapa_tdnn_hub in $output_folder"
+echo "Done training of $model in $output_folder"
 exit 0

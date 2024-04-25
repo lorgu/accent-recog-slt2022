@@ -97,7 +97,8 @@ class AID(sb.Brain):
         # ipdb.set_trace()
         # preparing outputs
         outputs = outputs.view(outputs.shape[0], -1)
-        outputs = self.modules.preout_mlp(outputs)
+        # print(self.modules)
+        # outputs = self.modules.preout_mlp(outputs)
         outputs = self.modules.output_mlp(outputs)
         outputs = self.hparams.log_softmax(outputs)
 

@@ -20,7 +20,7 @@ cmd='none'
 
 # training vars
 ecapa_tdnn_hub="speechbrain/spkrec-ecapa-voxceleb/embedding_model.ckpt"
-seed="1987"
+seed="1988"
 apply_augmentation="True"
 max_batch_len=300 #600
 

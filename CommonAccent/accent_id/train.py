@@ -413,6 +413,10 @@ if __name__ == "__main__":
     if hparams["load_pretrained"]:
         sb.utils.distributed.run_on_main(hparams["pretrainer"].collect_files)
         hparams["pretrainer"].load_collected(device=run_opts["device"])
+        print("Pretrained model loaded")
+        print(sb.utils.distributed.run_on_main(hparams["pretrainer"].collect_files))
+    else:
+        print("No pretrained model loaded")
 
     # Initialize the Brain object to prepare for mask training.
     aid_brain = AID(
