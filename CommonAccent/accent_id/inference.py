@@ -256,7 +256,6 @@ if __name__ == "__main__":
         # create the confusion matrix and plot it
         cm = confusion_matrix(y_true, y_pred, labels=classes)
         disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=classes)
-        disp.rcParams.update({'font.size': 8})
         disp.plot()
         disp.ax_.tick_params(axis="x", labelrotation=45, labelsize=4)
         disp.ax_.tick_params(axis="y", labelsize=4)
