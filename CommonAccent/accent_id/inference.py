@@ -220,6 +220,11 @@ if __name__ == "__main__":
 
     # Fetch and laod pretrained modules
     sb.utils.distributed.run_on_main(hparams["pretrainer"].collect_files)
+    if torch.cuda.is_available():
+        print("Cuda is available")
+    else:
+        print("Cuda is not available")
+    
     hparams["pretrainer"].load_collected(device=run_opts["device"])
 
     # Initialize the Brain object to prepare for performing infernence.
