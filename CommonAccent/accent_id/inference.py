@@ -185,6 +185,30 @@ def dataio_prep(hparams):
     return datasets
 
 
+def return_embedding(file_path, accid_brain, save_path):
+    # set batch size to 1
+    # accid_brain.hparams.batch_size = 1
+    # Load the audio file
+    _ , sample_rate = torchaudio.load(file_path)
+    sig, _ = librosa.load(file_path, sr=sample_rate)
+    sig = torch.tensor(sig).unsqueeze(0)  # Add an extra dimension
+    sig = sig.cuda()
+    # Prepare the features
+    feats, lens = accid_brain.prepare_features((sig, torch.tensor([sig.shape[0]])), sb.Stage.TEST)
+    # print("shape(feats): ", feats.shape)
+    # print("lens: ", lens)
+    # Compute the embeddings
+    embeddings = accid_brain.modules.embedding_model(feats)
+
+    # Get the filename without the extension
+    # print("file_path: ", file_path)
+    filename = os.path.splitext(os.path.basename(file_path))[0]
+    # print("filename: ", filename)
+    # Save the embedding with the same filename
+    # torch.save(embeddings, os.path.join(save_path, filename + ".pt"))
+    # print("Embedding saved at: ", os.path.join(save_path, filename + ".pt"))
+    return embeddings
+
 # Recipe begins!
 if __name__ == "__main__":
 
