@@ -253,9 +253,10 @@ if __name__ == "__main__":
         disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=classes)
         disp.rcParams.update({'font.size': 8})
         disp.plot()
-        disp.ax_.tick_params(axis="x", labelrotation=80, labelsize='smaller')
+        disp.ax_.tick_params(axis="x", labelrotation=45, labelsize=4)
+        disp.ax_.tick_params(axis="y", labelsize=4)
         disp.figure_.savefig(
-            f"{hparams['output_folder']}/conf_mat_{set_name}.png", dpi=300
+            f"{hparams['output_folder']}/conf_mat_{set_name}.png", dpi=300, bbox_inches='tight'
         )
 
     # Load the best checkpoint for evaluation of test set
