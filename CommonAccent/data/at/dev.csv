@@ -1,0 +1,102 @@
+ID,utt_id,wav,wav_format,text,duration,accent
+0, 41501_AD_WA_446.1,/nas/projects/vokquant/data/dicla/dev2/AD_Adlwang alt/41501_AD_WA_446.1.wav,wav, ,0.000,41501
+1, 30501_AB_MA_389.1,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg alt/30501_AB_MA_389.1.wav,wav, ,0.000,30501
+2, 30501_AB_WJ_493.1,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg jung/30501_AB_WJ_493.1.wav,wav, ,0.000,30501
+3, 70366_WG_WJ_052.1,/nas/projects/vokquant/data/dicla/dev2/WG_WJ/70366_WG_WJ_052.1.wav,wav, ,0.000,70366
+4, 30501_AB_MJ_213.2,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg jung/30501_AB_MJ_213.2.wav,wav, ,0.000,30501
+5, 70366_WG_WJ_289.1,/nas/projects/vokquant/data/dicla/dev2/WG_WJ/70366_WG_WJ_289.1.wav,wav, ,0.000,70366
+6, 30501_AB_MA_088.1,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg alt/30501_AB_MA_088.1.wav,wav, ,0.000,30501
+7, 30501_AB_MJ_156.1,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg jung/30501_AB_MJ_156.1.wav,wav, ,0.000,30501
+8, 70366_WG_WJ_242.1,/nas/projects/vokquant/data/dicla/dev2/WG_WJ/70366_WG_WJ_242.1.wav,wav, ,0.000,70366
+9, 41501_AD_WA_295.1,/nas/projects/vokquant/data/dicla/dev2/AD_Adlwang alt/41501_AD_WA_295.1.wav,wav, ,0.000,41501
+10, 30501_AB_MJ_464.2,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg jung/30501_AB_MJ_464.2.wav,wav, ,0.000,30501
+11, 30501_AB_WJ_359.1,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg jung/30501_AB_WJ_359.1.wav,wav, ,0.000,30501
+12, 30501_AB_MJ_160.1,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg jung/30501_AB_MJ_160.1.wav,wav, ,0.000,30501
+13, 70366_WG_WJ_146.4_nb_1,/nas/projects/vokquant/data/dicla/dev2/WG_WJ/70366_WG_WJ_146.4_nb_1.wav,wav, ,0.000,70366
+14, 70366_WG_WJ_123.2,/nas/projects/vokquant/data/dicla/dev2/WG_WJ/70366_WG_WJ_123.2.wav,wav, ,0.000,70366
+15, 41501_AD_MA_291.1_ATL,/nas/projects/vokquant/data/dicla/dev2/AD_Adlwang alt/41501_AD_MA_291.1_ATL.wav,wav, ,0.000,41501
+16, 70366_WG_WJ_169.1,/nas/projects/vokquant/data/dicla/dev2/WG_WJ/70366_WG_WJ_169.1.wav,wav, ,0.000,70366
+17, 30501_AB_MA_326.1,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg alt/30501_AB_MA_326.1.wav,wav, ,0.000,30501
+18, 30501_AB_MJ_117.1,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg jung/30501_AB_MJ_117.1.wav,wav, ,0.000,30501
+19, 70366_WG_WJ_434.1_ATL,/nas/projects/vokquant/data/dicla/dev2/WG_WJ/70366_WG_WJ_434.1_ATL.wav,wav, ,0.000,70366
+20, 30501_AB_WA_194.1,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg alt/30501_AB_WA_194.1.wav,wav, ,0.000,30501
+21, 41501_AD_WA_157.2,/nas/projects/vokquant/data/dicla/dev2/AD_Adlwang alt/41501_AD_WA_157.2.wav,wav, ,0.000,41501
+22, 70366_WG_WJ_361.1,/nas/projects/vokquant/data/dicla/dev2/WG_WJ/70366_WG_WJ_361.1.wav,wav, ,0.000,70366
+23, 41501_AD_MA_115.1,/nas/projects/vokquant/data/dicla/dev2/AD_Adlwang alt/41501_AD_MA_115.1.wav,wav, ,0.000,41501
+24, 30501_AB_MA_ex_07,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg alt/30501_AB_MA_ex_07.wav,wav, ,0.000,30501
+25, 30501_AB_WA_323.5,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg alt/30501_AB_WA_323.5.wav,wav, ,0.000,30501
+26, 30501_AB_MJ_458.4,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg jung/30501_AB_MJ_458.4.wav,wav, ,0.000,30501
+27, 30501_AB_WA_299.1,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg alt/30501_AB_WA_299.1.wav,wav, ,0.000,30501
+28, 30501_AB_MJ_257.1,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg jung/30501_AB_MJ_257.1.wav,wav, ,0.000,30501
+29, 30501_AB_MA_168.2,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg alt/30501_AB_MA_168.2.wav,wav, ,0.000,30501
+30, 30501_AB_MA_246.1,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg alt/30501_AB_MA_246.1.wav,wav, ,0.000,30501
+31, 30501_AB_MA_463.2,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg alt/30501_AB_MA_463.2.wav,wav, ,0.000,30501
+32, 30501_AB_WA_392.1,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg alt/30501_AB_WA_392.1.wav,wav, ,0.000,30501
+33, 30501_AB_MJ_065.1,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg jung/30501_AB_MJ_065.1.wav,wav, ,0.000,30501
+34, 70366_WG_WJ_441.9_na_1,/nas/projects/vokquant/data/dicla/dev2/WG_WJ/70366_WG_WJ_441.9_na_1.wav,wav, ,0.000,70366
+35, 30501_AB_MJ_405.6,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg jung/30501_AB_MJ_405.6.wav,wav, ,0.000,30501
+36, 30501_AB_WJ_017.1,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg jung/30501_AB_WJ_017.1.wav,wav, ,0.000,30501
+37, 30501_AB_WA_349.1,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg alt/30501_AB_WA_349.1.wav,wav, ,0.000,30501
+38, 70366_WG_WJ_279.1,/nas/projects/vokquant/data/dicla/dev2/WG_WJ/70366_WG_WJ_279.1.wav,wav, ,0.000,70366
+39, 41501_AD_MA_169.9,/nas/projects/vokquant/data/dicla/dev2/AD_Adlwang alt/41501_AD_MA_169.9.wav,wav, ,0.000,41501
+40, 41501_AD_MA_421.1,/nas/projects/vokquant/data/dicla/dev2/AD_Adlwang alt/41501_AD_MA_421.1.wav,wav, ,0.000,41501
+41, 30501_AB_MJ_169.1,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg jung/30501_AB_MJ_169.1.wav,wav, ,0.000,30501
+42, 30501_AB_MA_146.4,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg alt/30501_AB_MA_146.4.wav,wav, ,0.000,30501
+43, 30501_AB_MJ_446.9,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg jung/30501_AB_MJ_446.9.wav,wav, ,0.000,30501
+44, 30501_AB_MJ_121.4,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg jung/30501_AB_MJ_121.4.wav,wav, ,0.000,30501
+45, 30501_AB_MJ_138.1,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg jung/30501_AB_MJ_138.1.wav,wav, ,0.000,30501
+46, 30501_AB_MJ_086.1,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg jung/30501_AB_MJ_086.1.wav,wav, ,0.000,30501
+47, 30501_AB_WJ_417.1,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg jung/30501_AB_WJ_417.1.wav,wav, ,0.000,30501
+48, 30501_AB_WJ_333.8,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg jung/30501_AB_WJ_333.8.wav,wav, ,0.000,30501
+49, 30501_AB_MJ_333.7,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg jung/30501_AB_MJ_333.7.wav,wav, ,0.000,30501
+50, 70366_WG_WJ_358.1,/nas/projects/vokquant/data/dicla/dev2/WG_WJ/70366_WG_WJ_358.1.wav,wav, ,0.000,70366
+51, 41501_exkurs06,/nas/projects/vokquant/data/dicla/dev2/AD_Adlwang alt/41501_exkurs06.wav,wav, ,0.000,41501
+52, 30501_AB_MJ_315.1_ATL,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg jung/30501_AB_MJ_315.1_ATL.wav,wav, ,0.000,30501
+53, 30501_AB_MJ_114.2,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg jung/30501_AB_MJ_114.2.wav,wav, ,0.000,30501
+54, 30501_AB_WJ_394.1,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg jung/30501_AB_WJ_394.1.wav,wav, ,0.000,30501
+55, 41501_AD_WA_229.1,/nas/projects/vokquant/data/dicla/dev2/AD_Adlwang alt/41501_AD_WA_229.1.wav,wav, ,0.000,41501
+56, 30501_AB_WA_340.1,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg alt/30501_AB_WA_340.1.wav,wav, ,0.000,30501
+57, 30501_AB_WA_142.3_ATL,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg alt/30501_AB_WA_142.3_ATL.wav,wav, ,0.000,30501
+58, 30501_AB_MJ_299.2_ATL,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg jung/30501_AB_MJ_299.2_ATL.wav,wav, ,0.000,30501
+59, 41501_AD_MA_128.2,/nas/projects/vokquant/data/dicla/dev2/AD_Adlwang alt/41501_AD_MA_128.2.wav,wav, ,0.000,41501
+60, 30501_AB_MA_008.2,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg alt/30501_AB_MA_008.2.wav,wav, ,0.000,30501
+61, 41501_AD_MA_054.1,/nas/projects/vokquant/data/dicla/dev2/AD_Adlwang alt/41501_AD_MA_054.1.wav,wav, ,0.000,41501
+62, 41501_AD_MA_413.5,/nas/projects/vokquant/data/dicla/dev2/AD_Adlwang alt/41501_AD_MA_413.5.wav,wav, ,0.000,41501
+63, 30501_AB_MJ_334.1,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg jung/30501_AB_MJ_334.1.wav,wav, ,0.000,30501
+64, 30501_AB_WA_301.2,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg alt/30501_AB_WA_301.2.wav,wav, ,0.000,30501
+65, 70366_WG_WJ_110.1_3,/nas/projects/vokquant/data/dicla/dev2/WG_WJ/70366_WG_WJ_110.1_3.wav,wav, ,0.000,70366
+66, 30501_AB_WA_450.7,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg alt/30501_AB_WA_450.7.wav,wav, ,0.000,30501
+67, 70366_WG_WJ_142.9,/nas/projects/vokquant/data/dicla/dev2/WG_WJ/70366_WG_WJ_142.9.wav,wav, ,0.000,70366
+68, 70366_WG_WJ_309.1,/nas/projects/vokquant/data/dicla/dev2/WG_WJ/70366_WG_WJ_309.1.wav,wav, ,0.000,70366
+69, 41501_AD_WA_342.1,/nas/projects/vokquant/data/dicla/dev2/AD_Adlwang alt/41501_AD_WA_342.1.wav,wav, ,0.000,41501
+70, 30501_AB_MJ_383.1,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg jung/30501_AB_MJ_383.1.wav,wav, ,0.000,30501
+71, 30501_AB_MA_087.1,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg alt/30501_AB_MA_087.1.wav,wav, ,0.000,30501
+72, 70366_WG_WJ_146.2,/nas/projects/vokquant/data/dicla/dev2/WG_WJ/70366_WG_WJ_146.2.wav,wav, ,0.000,70366
+73, 30501_AB_WA_374.1,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg alt/30501_AB_WA_374.1.wav,wav, ,0.000,30501
+74, 30501_AB_WA_209.3,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg alt/30501_AB_WA_209.3.wav,wav, ,0.000,30501
+75, 41501_AD_WA_289.1,/nas/projects/vokquant/data/dicla/dev2/AD_Adlwang alt/41501_AD_WA_289.1.wav,wav, ,0.000,41501
+76, 41501_AD_WA_502.1,/nas/projects/vokquant/data/dicla/dev2/AD_Adlwang alt/41501_AD_WA_502.1.wav,wav, ,0.000,41501
+77, 41501_AD_MA_313.2,/nas/projects/vokquant/data/dicla/dev2/AD_Adlwang alt/41501_AD_MA_313.2.wav,wav, ,0.000,41501
+78, 30501_AB_MA_422.2,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg alt/30501_AB_MA_422.2.wav,wav, ,0.000,30501
+79, 70366_WG_WJ_121.2,/nas/projects/vokquant/data/dicla/dev2/WG_WJ/70366_WG_WJ_121.2.wav,wav, ,0.000,70366
+80, 30501_AB_MA_289.1,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg alt/30501_AB_MA_289.1.wav,wav, ,0.000,30501
+81, 70366_WG_WJ_461.2,/nas/projects/vokquant/data/dicla/dev2/WG_WJ/70366_WG_WJ_461.2.wav,wav, ,0.000,70366
+82, 30501_AB_WJ_481.1,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg jung/30501_AB_WJ_481.1.wav,wav, ,0.000,30501
+83, 41501_AD_WA_200.1,/nas/projects/vokquant/data/dicla/dev2/AD_Adlwang alt/41501_AD_WA_200.1.wav,wav, ,0.000,41501
+84, 41501_AD_MA_392.1,/nas/projects/vokquant/data/dicla/dev2/AD_Adlwang alt/41501_AD_MA_392.1.wav,wav, ,0.000,41501
+85, 41501_AD_WA_300.1,/nas/projects/vokquant/data/dicla/dev2/AD_Adlwang alt/41501_AD_WA_300.1.wav,wav, ,0.000,41501
+86, 30501_AB_MA_063.1,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg alt/30501_AB_MA_063.1.wav,wav, ,0.000,30501
+87, 41501_AD_WA_522.1,/nas/projects/vokquant/data/dicla/dev2/AD_Adlwang alt/41501_AD_WA_522.1.wav,wav, ,0.000,41501
+88, 70366_WG_WJ_388.1,/nas/projects/vokquant/data/dicla/dev2/WG_WJ/70366_WG_WJ_388.1.wav,wav, ,0.000,70366
+89, 41501_exkurs02,/nas/projects/vokquant/data/dicla/dev2/AD_Adlwang alt/41501_exkurs02.wav,wav, ,0.000,41501
+90, 30501_AB_WA_435.1,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg alt/30501_AB_WA_435.1.wav,wav, ,0.000,30501
+91, 30501_AB_WA_142.6,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg alt/30501_AB_WA_142.6.wav,wav, ,0.000,30501
+92, 41501_AD_WA_402.2,/nas/projects/vokquant/data/dicla/dev2/AD_Adlwang alt/41501_AD_WA_402.2.wav,wav, ,0.000,41501
+93, 30501_AB_WA_450.8,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg alt/30501_AB_WA_450.8.wav,wav, ,0.000,30501
+94, 30501_AB_WA_249.1,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg alt/30501_AB_WA_249.1.wav,wav, ,0.000,30501
+95, 30501_AB_MJ_440.1,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg jung/30501_AB_MJ_440.1.wav,wav, ,0.000,30501
+96, 30501_AB_WJ_016.1,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg jung/30501_AB_WJ_016.1.wav,wav, ,0.000,30501
+97, 30501_AB_WA_203.1,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg alt/30501_AB_WA_203.1.wav,wav, ,0.000,30501
+98, 41501_AD_WA_323.2,/nas/projects/vokquant/data/dicla/dev2/AD_Adlwang alt/41501_AD_WA_323.2.wav,wav, ,0.000,41501
+99, 30501_AB_WA_169.8,/nas/projects/vokquant/data/dicla/dev2/AB_Allhartsberg alt/30501_AB_WA_169.8.wav,wav, ,0.000,30501
+100, 11111_BB.WA.016.1,/nas/projects/vokquant/data/dicla/dev2/BB_WA/BB.WA.008.2.wav,wav, ,0.000,11111
