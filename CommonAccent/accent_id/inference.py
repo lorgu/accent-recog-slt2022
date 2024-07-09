@@ -31,6 +31,10 @@ logger = logging.getLogger(__name__)
 
 # Brain class for Accent ID training
 class AccID_inf(sb.Brain):
+    def eval(self):
+    for module in self.modules.values():
+        if isinstance(module, torch.nn.Module):
+            module.eval()
     def prepare_features(self, wavs, stage):
         """Prepare the features for computation, including augmentation.
 
