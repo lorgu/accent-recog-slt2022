@@ -29,11 +29,7 @@ dynamic_batching: False
 # Training Parameters
 sample_rate: 16000
 batch_size: 1
-<<<<<<< HEAD
 n_languages: 109
-=======
-n_languages: 4
->>>>>>> e09fb0f0dabd40921a1ed107ea8b3b510a6e6fe5
 emb_dim: 192 # dimensionality of the embeddings
 
 test_dataloader_options:
