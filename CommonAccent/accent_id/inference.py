@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import logging
 import os
 import sys
@@ -15,6 +14,7 @@ from sklearn.metrics import (
     confusion_matrix,
     f1_score,
 )
+import pickle
 
 """Recipe for performing inference on Accent Classification system with CommonVoice Accent.
 
@@ -31,6 +31,10 @@ logger = logging.getLogger(__name__)
 
 # Brain class for Accent ID training
 class AccID_inf(sb.Brain):
+    def eval(self):
+        for module in self.modules.values():
+            if isinstance(module, torch.nn.Module):
+                module.eval()
     def prepare_features(self, wavs, stage):
         """Prepare the features for computation, including augmentation.
 
@@ -45,7 +49,8 @@ class AccID_inf(sb.Brain):
 
         # Feature extraction and normalization
         feats = self.modules.compute_features(wavs)
-        feats = self.modules.mean_var_norm(feats, lens)
+        feats = self.modules.mean_var_norm(feats, lens.float())
+        # print("shape(feats inside prepare): ", feats.shape)
 
         return feats, lens
 
@@ -72,8 +77,23 @@ class AccID_inf(sb.Brain):
         # Compute features, embeddings and output
         feats, lens = self.prepare_features(batch.sig, stage)
         embeddings = self.modules.embedding_model(feats)
+        # print("shape(embeddings): ", embeddings.shape)
+        
         outputs = self.modules.classifier(embeddings)
-
+        
+        export_embeddings = False
+        if export_embeddings:
+            # Save embeddings for t-SNE
+            output_folder = "/nas/projects/vokquant/accent-recog-slt2022/results/ECAPA-TDNN/DE/spkrec-ecapa-voxceleb/1987/"
+            save_path = os.path.join(output_folder, "embeddings")
+            if not os.path.exists(save_path):
+                os.makedirs(save_path)
+            for i in range(len(batch.id)):
+                # Get wav file name
+                filename = batch.id[i]
+                # Save embedding with filename
+                torch.save(embeddings[i], os.path.join(save_path, filename + ".pt"))
+        
         return outputs, lens
 
     def compute_objectives(self, inputs, batch, stage):
@@ -122,10 +142,6 @@ class AccID_inf(sb.Brain):
             self.error_metrics = self.hparams.error_stats()
             self.error_metrics2 = self.hparams.error_stats2()
 
-
-import ipdb
-
-
 def dataio_prep(hparams):
     """This function prepares the datasets to be used in the brain class.
     It also defines the data processing pipeline through user-defined functions.
@@ -170,7 +186,7 @@ def dataio_prep(hparams):
     # Define datasets. We also connect the dataset with the data processing
     # functions defined above.
     datasets = {}
-    for dataset in ["dummy", "dev", "test"]:
+    for dataset in ["train", "dev", "test"]:
         datasets[dataset] = sb.dataio.dataset.DynamicItemDataset.from_csv(
             csv_path=os.path.join(hparams["csv_prepared_folder"], dataset + ".csv"),
             replacements={"data_root": hparams["data_folder"]},
@@ -184,13 +200,72 @@ def dataio_prep(hparams):
 
     return datasets
 
+def return_embedding(file_path, accid_brain, save_path):
+    # set batch size to 1
+    # accid_brain.hparams.batch_size = 1
+    # Load the audio file
+    _ , sample_rate = torchaudio.load(file_path)
+    sig, _ = librosa.load(file_path, sr=sample_rate)
+    sig = torch.tensor(sig).unsqueeze(0)  # Add an extra dimension
+    sig = sig.cuda()
+    # Prepare the features
+    feats, lens = accid_brain.prepare_features((sig, torch.tensor([sig.shape[0]])), sb.Stage.TEST)
+    # print("shape(feats): ", feats.shape)
+    # print("lens: ", lens)
+    # Compute the embeddings
+    embeddings = accid_brain.modules.embedding_model(feats)
+
+    # Get the filename without the extension
+    # print("file_path: ", file_path)
+    filename = os.path.splitext(os.path.basename(file_path))[0]
+    # print("filename: ", filename)
+    # Save the embedding with the same filename
+    # torch.save(embeddings, os.path.join(save_path, filename + ".pt"))
+    # print("Embedding saved at: ", os.path.join(save_path, filename + ".pt"))
+    return embeddings
+
+# map indices to encoder
+def map_indices_to_encoder(indices, encoder):
+    city_codes = [city_codes[i] for i in indices]
+    return city_codes
+
+def calc_macro_results(y_pred, y_true):
+    print("y_pred: ", y_pred)
+    print("y_true: ", y_true)
+    # calculate macro scores
+    f1_macro = f1_score(y_true, y_pred, average='macro')
+    print("f1_macro: ", f1_macro)
+    accuracy = sum([1 for i in range(len(y_true)) if y_true[i] == y_pred[i]]) / len(y_true)
+    print("accuracy: ", accuracy)
+    # precision = precision_score(y_true, y_pred, average='macro')
+    # print("precision: ", precision)
+    # recall = recall_score(y_true, y_pred, average='macro')
+    # print("recall: ", recall)
+    return {"f1_macro": f1_macro, "accuracy": accuracy}
+
 
 # Recipe begins!
 if __name__ == "__main__":
 
+    export_embeddings = False
+    if export_embeddings:
+        save_path = os.path.join(output_folder, "embeddings")
+        # file_path = "/home/lorenzg/.cache/huggingface/datasets/downloads/extracted/7fa940d5e98e14130c923c2dde203c1729e46a596f788672e3580c0dece79a25/de_train_0/common_voice_de_27341092.mp3"
+        # output_folder = "/nas/projects/vokquant/accent-recog-slt2022/results/ECAPA-TDNN/AT/spkrec-ecapa-voxceleb/1987/"
+    
+    # this prevents to load an old model
+    auto_rename = True
+    if os.path.exists("./model_checkpoints"):
+        print("WARNING: model_checkpoints directory exists. Please remove it before running inference.py")
+        if auto_rename:
+            print("automatic renaming of model_checkpoints directory")
+            datetime = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+            os.rename("./model_checkpoints", f"./model_checkpoints_{datetime}")
+    
     # Reading command line arguments.
     hparams_file, run_opts, overrides = sb.parse_arguments(sys.argv[1:])
 
+    # print all models in speechbrain.lobes.models
     # Load hyperparameters file with command-line overrides.
     with open(hparams_file) as fin:
         hparams = load_hyperpyyaml(fin, overrides)
@@ -202,13 +277,13 @@ if __name__ == "__main__":
         overrides=overrides,
     )
 
-    # Initialization of the label encoder. The label encoder assignes to each
-    # of the observed label a unique index (e.g, 'accent01': 0, 'accent02': 1, ..)
+    # Initialization of the label encoder. The label encoder assigns to each
+    # of the observed label a unique index (e.g., 'accent01': 0, 'accent02': 1, ..)
     accent_encoder = sb.dataio.encoder.CategoricalEncoder()
 
     # Load label encoder (with multi-GPU DDP support)
     # Please, take a look into the lab_enc_file to see the label to index
-    # mappinng.
+    # mapping.
     accent_encoder_file = os.path.join(hparams["pretrained_path"], "accent_encoder.txt")
     accent_encoder.load_or_create(
         path=accent_encoder_file,
@@ -218,15 +293,27 @@ if __name__ == "__main__":
     # Create dataset objects "train", "dev", and "test" and accent_encoder
     datasets = dataio_prep(hparams)
 
-    # Fetch and laod pretrained modules
+    # Fetch and load pretrained modules
     sb.utils.distributed.run_on_main(hparams["pretrainer"].collect_files)
     hparams["pretrainer"].load_collected(device=run_opts["device"])
+    if torch.cuda.is_available():
+        print("Cuda is available")
+    else:
+        print("Cuda is not available")
+    
+    # device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    # hparams["pretrainer"].load_collected(device=device)
 
-    # Initialize the Brain object to prepare for performing infernence.
+
+    # Initialize the Brain object to prepare for performing inference.
     accid_brain = AccID_inf(
         modules=hparams["modules"],
         hparams=hparams,
     )
+    accid_brain.eval()
+    
+    if export_embeddings:
+        return_embedding(file_path, accid_brain, save_path)
 
     # Function that actually prints the output. you can modify this to get some other information
     def print_confusion_matrix(AccID_object, set_name="dev"):
@@ -235,8 +322,70 @@ if __name__ == "__main__":
         # get the scores after running the forward pass
         y_true_val = torch.cat(AccID_object.error_metrics2.labels).tolist()
         y_pred_val = torch.cat(AccID_object.error_metrics2.scores).tolist()
+        print("y_pred_val: ", y_pred_val)
+        print("y_true_val: ", y_true_val)
 
+        with open("/nas/projects/vokquant/TCS/scripts/region_ids.pkl", "rb") as f:
+            region_ids = pickle.load(f)
+        
+        region_1 = region_ids[0]
+        region_2 = region_ids[1]
+        region_3 = region_ids[2]
+        region_4 = region_ids[3]
+        region_5 = region_ids[4]
+        region_6 = region_ids[5]
+        region_7 = region_ids[6]
+        region_8 = region_ids[7]
+        
+        # map y_true_val to region_ids
+        y_true_val_mapped = []
+        for i in y_true_val:
+            i_str = str(i)  # Convert to string
+            if i_str in region_1:
+                y_true_val_mapped.append(0)
+            elif i_str in region_2:
+                y_true_val_mapped.append(1)
+            elif i_str in region_3:
+                y_true_val_mapped.append(2)
+            elif i_str in region_4:
+                y_true_val_mapped.append(3)
+            elif i_str in region_5:
+                y_true_val_mapped.append(4)
+            elif i_str in region_6:
+                y_true_val_mapped.append(5)
+            elif i_str in region_7:
+                y_true_val_mapped.append(6)
+            elif i_str in region_8:
+                y_true_val_mapped.append(7)
+            else:
+                print("ERROR: region not found")
+        y_pred_val_mapped = []
+        for i in y_pred_val:
+            i_str = str(i)  # Convert to string
+            if i_str in region_1:
+                y_pred_val_mapped.append(0)
+            elif i_str in region_2:
+                y_pred_val_mapped.append(1)
+            elif i_str in region_3:
+                y_pred_val_mapped.append(2)
+            elif i_str in region_4:
+                y_pred_val_mapped.append(3)
+            elif i_str in region_5:
+                y_pred_val_mapped.append(4)
+            elif i_str in region_6:
+                y_pred_val_mapped.append(5)
+            elif i_str in region_7:
+                y_pred_val_mapped.append(6)
+            elif i_str in region_8:
+                y_pred_val_mapped.append(7)
+            else:
+                print("ERROR: region not found")
+        
+        # calculate macro scores
+        scores = calc_macro_results(y_pred_val_mapped, y_true_val_mapped)
+        
         # get the values of the items from the dictionary
+        # accent_encoder.ind2lab = {}
         y_true = [accent_encoder.ind2lab[i] for i in y_true_val]
         y_pred = [accent_encoder.ind2lab[i] for i in y_pred_val]
 
@@ -247,16 +396,19 @@ if __name__ == "__main__":
             f"{hparams['output_folder']}/classification_report_{set_name}.txt", "w"
         ) as f:
             f.write(classification_report(y_true, y_pred))
+        print("output_folder: ", hparams["output_folder"])
 
         # create the confusion matrix and plot it
         cm = confusion_matrix(y_true, y_pred, labels=classes)
         disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=classes)
-        disp.rcParams.update({'font.size': 8})
+        # disp.rcParams.update({'font.size': 8})
         disp.plot()
-        disp.ax_.tick_params(axis="x", labelrotation=80, labelsize='smaller')
+        disp.ax_.tick_params(axis="x", labelrotation=45, labelsize=4)
+        disp.ax_.tick_params(axis="y", labelsize=4)
         disp.figure_.savefig(
-            f"{hparams['output_folder']}/conf_mat_{set_name}.png", dpi=300
+            f"{hparams['output_folder']}/conf_mat_{set_name}.png", dpi=300, bbox_inches='tight'
         )
+        return y_true, y_pred
 
     # Load the best checkpoint for evaluation of test set
     test_stats = accid_brain.evaluate(
@@ -264,6 +416,7 @@ if __name__ == "__main__":
         min_key="error",
         test_loader_kwargs=hparams["test_dataloader_options"],
     )
+    # print_confusion_matrix(accid_brain, set_name="test_mini2")
     print_confusion_matrix(accid_brain, set_name="test")
 
     # Load the best checkpoint for evaluation of dev set
@@ -274,4 +427,4 @@ if __name__ == "__main__":
     )
     print_confusion_matrix(accid_brain, set_name="dev")
 
-    ipdb.set_trace()
+    # ipdb.set_trace()
