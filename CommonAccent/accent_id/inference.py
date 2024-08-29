@@ -244,6 +244,30 @@ def calc_macro_results(y_pred, y_true):
     return {"f1_macro": f1_macro, "accuracy": accuracy}
 
 
+def return_embedding(file_path, accid_brain, save_path):
+    # set batch size to 1
+    # accid_brain.hparams.batch_size = 1
+    # Load the audio file
+    _ , sample_rate = torchaudio.load(file_path)
+    sig, _ = librosa.load(file_path, sr=sample_rate)
+    sig = torch.tensor(sig).unsqueeze(0)  # Add an extra dimension
+    sig = sig.cuda()
+    # Prepare the features
+    feats, lens = accid_brain.prepare_features((sig, torch.tensor([sig.shape[0]])), sb.Stage.TEST)
+    # print("shape(feats): ", feats.shape)
+    # print("lens: ", lens)
+    # Compute the embeddings
+    embeddings = accid_brain.modules.embedding_model(feats)
+
+    # Get the filename without the extension
+    # print("file_path: ", file_path)
+    filename = os.path.splitext(os.path.basename(file_path))[0]
+    # print("filename: ", filename)
+    # Save the embedding with the same filename
+    # torch.save(embeddings, os.path.join(save_path, filename + ".pt"))
+    # print("Embedding saved at: ", os.path.join(save_path, filename + ".pt"))
+    return embeddings
+
 # Recipe begins!
 if __name__ == "__main__":
 
@@ -295,6 +319,11 @@ if __name__ == "__main__":
 
     # Fetch and load pretrained modules
     sb.utils.distributed.run_on_main(hparams["pretrainer"].collect_files)
+    if torch.cuda.is_available():
+        print("Cuda is available")
+    else:
+        print("Cuda is not available")
+    
     hparams["pretrainer"].load_collected(device=run_opts["device"])
     if torch.cuda.is_available():
         print("Cuda is available")
@@ -401,7 +430,6 @@ if __name__ == "__main__":
         # create the confusion matrix and plot it
         cm = confusion_matrix(y_true, y_pred, labels=classes)
         disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=classes)
-        # disp.rcParams.update({'font.size': 8})
         disp.plot()
         disp.ax_.tick_params(axis="x", labelrotation=45, labelsize=4)
         disp.ax_.tick_params(axis="y", labelsize=4)

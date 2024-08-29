@@ -29,7 +29,11 @@ dynamic_batching: False
 # Training Parameters
 sample_rate: 16000
 batch_size: 1
+<<<<<<< HEAD
 n_languages: 109
+=======
+n_languages: 4
+>>>>>>> e09fb0f0dabd40921a1ed107ea8b3b510a6e6fe5
 emb_dim: 192 # dimensionality of the embeddings
 
 test_dataloader_options:
@@ -90,7 +94,11 @@ error_stats2: !name:speechbrain.utils.metric_stats.BinaryMetricStats
 # device, as well as having train()/eval() called on them by the Brain class.
 modules:
     compute_features: !ref <compute_features>
+<<<<<<< HEAD
     mean_var_norm: !ref <mean_var_norm>
+=======
+    mean_var_norm: !ref <mean_var_norm>    
+>>>>>>> e09fb0f0dabd40921a1ed107ea8b3b510a6e6fe5
     mean_var_norm_input: !ref <mean_var_norm_input>    
     embedding_model: !ref <embedding_model>
     classifier: !ref <classifier>
@@ -103,9 +111,15 @@ pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
         embedding_model: !ref <embedding_model>
         classifier: !ref <classifier>
         label_encoder: !ref <label_encoder>
+<<<<<<< HEAD
         # device: !ref <device>
+=======
+>>>>>>> e09fb0f0dabd40921a1ed107ea8b3b510a6e6fe5
     paths:
         embedding_model: !ref <load_folder>/embedding_model.ckpt
         classifier: !ref <load_folder>/classifier.ckpt
         label_encoder: !ref <pretrained_path>/accent_encoder.txt
+<<<<<<< HEAD
         # device: !ref <device>
+=======
+>>>>>>> e09fb0f0dabd40921a1ed107ea8b3b510a6e6fe5
