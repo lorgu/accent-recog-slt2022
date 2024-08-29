@@ -6,15 +6,15 @@
 # #################################
 
 # Seed needs to be set at top of yaml, before objects with parameters are made
-seed: 1987
+seed: 2987
 __set_seed: !apply:torch.manual_seed [!ref <seed>]
 
 # Set up folders for reading from and writing:
 data_folder: /nas/projects/vokquant/data/common_voice_de/downloaded
 csv_prepared_folder: /nas/projects/vokquant/accent-recog-slt2022/data/de
-output_folder: !ref results/ECAPA-TDNN/<seed>
-pretrained_path: /nas/projects/vokquant/accent-recog-slt2022/results/ECAPA-TDNN/DE/spkrec-ecapa-voxceleb/1987/save
-load_folder: !ref <pretrained_path>/CKPT+2024-04-18+17-38-34+00
+output_folder: !ref results/W2V2/<seed>
+pretrained_path: /nas/projects/vokquant/accent-recog-slt2022/results/W2V2/DE/wav2vec2-large-xlsr-53/2987/save/
+load_folder: !ref <pretrained_path>/CKPT+2024-04-24+22-47-49+00
 device: 'cuda:0'
 skip_prep: True
 # max audio lenth allowed, higher than this is dropped
@@ -25,9 +25,11 @@ n_mels: 80
 
 # Training Parameters
 sample_rate: 16000
-batch_size: 64
+batch_size: 8
 n_languages: 7
-emb_dim: 192 # dimensionality of the embeddings
+# emb_dim: 192 # dimensionality of the embeddings
+emb_dim: 1024 # dimensionality of the embeddings
+encoder_dim: 1024
 
 test_dataloader_options:
     batch_size: 8
@@ -45,28 +47,28 @@ mean_var_norm: !new:speechbrain.processing.features.InputNormalization
     norm_type: sentence
     std_norm: False
 
-mean_var_norm_input: !new:speechbrain.processing.features.InputNormalization
-    norm_type: sentence
-    std_norm: False
-
 # To design a custom model, either just edit the simple CustomModel
 # class that's listed here, or replace this `!new` call with a line
 # pointing to a different file you've defined.
 
 # Embedding Model
-embedding_model: !new:speechbrain.lobes.models.ECAPA_TDNN.ECAPA_TDNN
-    input_size: !ref <n_mels>
-    activation: !name:torch.nn.LeakyReLU
-    channels: [1024, 1024, 1024, 1024, 3072]
-    kernel_sizes: [5, 3, 3, 3, 1]
-    dilations: [1, 2, 3, 4, 1]
-    attention_channels: 128
-    lin_neurons: !ref <emb_dim>
+# embedding_model: !new:speechbrain.lobes.models.ECAPA_TDNN.ECAPA_TDNN
+#     input_size: !ref <n_mels>
+#     activation: !name:torch.nn.LeakyReLU
+#     channels: [1024, 1024, 1024, 1024, 3072]
+#     kernel_sizes: [5, 3, 3, 3, 1]
+#     dilations: [1, 2, 3, 4, 1]
+#     attention_channels: 128
+#     lin_neurons: !ref <emb_dim>
 
+embedding_model: !new:speechbrain.lobes.models.huggingface_wav2vec.HuggingFaceWav2Vec2
+    source: !ref facebook/wav2vec2-large-xlsr-53
+    save_path: !ref <load_folder>/embedding_model.ckpt
+    
 # Classifier based on cosine distance
-classifier: !new:speechbrain.lobes.models.ECAPA_TDNN.Classifier
+classifier: !new:speechbrain.lobes.models.huggingface_wav2vec.Classifier
     input_size: !ref <emb_dim>
-    out_neurons: !ref <n_languages>
+    num_classes: !ref <n_languages>
 
 # Loss function to calculate during inference (this is optional)
 # Additive Angular Margin
@@ -88,7 +90,6 @@ error_stats2: !name:speechbrain.utils.metric_stats.BinaryMetricStats
 modules:
     compute_features: !ref <compute_features>
     mean_var_norm: !ref <mean_var_norm>    
-    mean_var_norm_input: !ref <mean_var_norm_input>    
     embedding_model: !ref <embedding_model>
     classifier: !ref <classifier>
 

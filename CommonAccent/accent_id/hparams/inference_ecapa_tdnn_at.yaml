@@ -6,16 +6,17 @@
 # #################################
 
 # Seed needs to be set at top of yaml, before objects with parameters are made
-seed: 1987
+seed: 10001
 __set_seed: !apply:torch.manual_seed [!ref <seed>]
 
 # Set up folders for reading from and writing:
-data_folder: /nas/projects/vokquant/data/common_voice_de/downloaded
-csv_prepared_folder: /nas/projects/vokquant/accent-recog-slt2022/data/de
-output_folder: !ref results/ECAPA-TDNN/<seed>
-pretrained_path: /nas/projects/vokquant/accent-recog-slt2022/results/ECAPA-TDNN/DE/spkrec-ecapa-voxceleb/1987/save
-load_folder: !ref <pretrained_path>/CKPT+2024-04-18+17-38-34+00
-device: 'cuda:0'
+data_folder: /not_used/
+csv_prepared_folder: /nas/projects/vokquant/accent-recog-slt2022/CommonAccent/data/at_dev
+output_folder: !ref /nas/projects/vokquant/accent-recog-slt2022/CommonAccent/results/ECAPA-TDNN/AT/spkrec-ecapa-voxceleb/<seed>
+pretrained_path: !ref /nas/projects/vokquant/accent-recog-slt2022/CommonAccent/results/ECAPA-TDNN/AT/spkrec-ecapa-voxceleb/<seed>/save
+load_folder: !ref <pretrained_path>/CKPT+2024-08-27+10-42-37+00
+# device: 'cuda:0'
+device: !ref 'cpu'
 skip_prep: True
 # max audio lenth allowed, higher than this is dropped
 max_audio_length: 10
@@ -23,14 +24,16 @@ max_audio_length: 10
 # Feature parameters btw: 40 - 80
 n_mels: 80
 
+dynamic_batching: False
+
 # Training Parameters
 sample_rate: 16000
-batch_size: 64
-n_languages: 7
+batch_size: 1
+n_languages: 109
 emb_dim: 192 # dimensionality of the embeddings
 
 test_dataloader_options:
-    batch_size: 8
+    batch_size: 1
     shuffle: True
 
 # variable to control whether to apply augmentation or not:
@@ -87,7 +90,7 @@ error_stats2: !name:speechbrain.utils.metric_stats.BinaryMetricStats
 # device, as well as having train()/eval() called on them by the Brain class.
 modules:
     compute_features: !ref <compute_features>
-    mean_var_norm: !ref <mean_var_norm>    
+    mean_var_norm: !ref <mean_var_norm>
     mean_var_norm_input: !ref <mean_var_norm_input>    
     embedding_model: !ref <embedding_model>
     classifier: !ref <classifier>
@@ -100,7 +103,9 @@ pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
         embedding_model: !ref <embedding_model>
         classifier: !ref <classifier>
         label_encoder: !ref <label_encoder>
+        # device: !ref <device>
     paths:
         embedding_model: !ref <load_folder>/embedding_model.ckpt
         classifier: !ref <load_folder>/classifier.ckpt
         label_encoder: !ref <pretrained_path>/accent_encoder.txt
+        # device: !ref <device>
