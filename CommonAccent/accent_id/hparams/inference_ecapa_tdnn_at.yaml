@@ -15,8 +15,8 @@ csv_prepared_folder: /nas/projects/vokquant/accent-recog-slt2022/CommonAccent/da
 output_folder: !ref /nas/projects/vokquant/accent-recog-slt2022/CommonAccent/results/ECAPA-TDNN/AT/spkrec-ecapa-voxceleb/<seed>
 pretrained_path: !ref /nas/projects/vokquant/accent-recog-slt2022/CommonAccent/results/ECAPA-TDNN/AT/spkrec-ecapa-voxceleb/<seed>/save
 load_folder: !ref <pretrained_path>/CKPT+2024-08-27+10-42-37+00
-# device: 'cuda:0'
-device: !ref 'cpu'
+device: 'cuda:0'
+# device: !ref 'cpu'
 skip_prep: True
 # max audio lenth allowed, higher than this is dropped
 max_audio_length: 10
@@ -90,11 +90,7 @@ error_stats2: !name:speechbrain.utils.metric_stats.BinaryMetricStats
 # device, as well as having train()/eval() called on them by the Brain class.
 modules:
     compute_features: !ref <compute_features>
-<<<<<<< HEAD
     mean_var_norm: !ref <mean_var_norm>
-=======
-    mean_var_norm: !ref <mean_var_norm>    
->>>>>>> e09fb0f0dabd40921a1ed107ea8b3b510a6e6fe5
     mean_var_norm_input: !ref <mean_var_norm_input>    
     embedding_model: !ref <embedding_model>
     classifier: !ref <classifier>
