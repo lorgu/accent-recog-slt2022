@@ -25,15 +25,15 @@ wav2vec2_hub="facebook/wav2vec2-large-xlsr-53"
 seed="10000"
 apply_augmentation="False"
 max_batch_len=50
-batch_size=1
+batch_size=2
 
 # data folder:
 language_id="de"
 csv_prepared_folder="/nas/projects/vokquant/accent-recog-slt2022/CommonAccent/data/at"
-output_dir="/nas/projects/vokquant/accent-recog-slt2022/CommonAccent/results/W2V2/AT/"
+output_dir="/nas/projects/vokquant/accent-recog-slt2022/CommonAccent/results/W2V2/AT"
 
 # If augmentation is defined:
-if [ ! "$apply_augmentation" == 'True' ]; then
+if [ "$apply_augmentation" == 'True' ]; then
     output_folder="$output_dir/$(basename $wav2vec2_hub)-augmented/$seed"
     rir_folder="data/rir_folder/"
 else
