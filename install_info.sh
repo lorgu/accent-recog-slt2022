@@ -13,3 +13,5 @@ git clone https://github.com/lorgu/accent-recog-slt2022 /nas/projects/vokquant/a
 cd /content/accent-recog-slt2022/ && \
 pip install -r requirements.txt && \
 pip install torchtext==0.13.1 torch==1.12.1+cu116 torchvision==0.13.1+cu116 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu116
+apt-get update && apt-get install -y pigz
+tar --use-compress-program=pigz -xf /workspace/processed_16khz_renamed.tar.gz -C /nas/projects/vokquant/data/dicla/
