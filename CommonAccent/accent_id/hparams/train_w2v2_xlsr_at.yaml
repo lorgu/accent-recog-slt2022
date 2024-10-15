@@ -6,17 +6,17 @@
 # #################################
 
 # Seed needs to be set at top of yaml, before objects with parameters are made
-seed: 10001
+seed: 1001
 __set_seed: !apply:torch.manual_seed [!ref <seed>]
 
 # Set up folders for reading from and writing to
 # Dataset will be downloaded to the `data_folder`
 # data_folder: !PLACEHOLDER # e.g. /localscratch/common_voice_kpd/
 data_folder: /notused/
-csv_prepared_folder: /home/projects/vokquant/accent-recog-slt2022/CommonAccent/data/at
+csv_prepared_folder: /home/projects/vokquant/accent-recog-slt2022/CommonAccent/data/at_augmented
 output_folder: !ref /home/projects/vokquant/accent-recog-slt2022/CommonAccent/results/W2V2/xlsr-53-<avg_pool_class>/<seed>
 save_folder: !ref <output_folder>/save
-rir_folder: !ref data/rir_folder
+rir_folder: !ref data/rir_foolder
 train_log: !ref <output_folder>/train_log.txt
 device: 'cuda:0'
 skip_prep: True
@@ -40,17 +40,17 @@ acc_computer: !name:speechbrain.utils.Accuracy.AccuracyStats
 
 # Training Parameters
 sample_rate: 16000
-number_of_epochs: 20
-batch_size: 4   #will be overriden by .sh script
+number_of_epochs: 30
+batch_size: 8   #will be overriden by .sh script
 
 # set to TRUE to freeze all wav2vec2
 freeze_wav2vec2: False
 # set to true to freeze the CONV part of the wav2vec2 model
 # We see an improvement of 2% with freezing CNNs
-freeze_wav2vec2_conv: True
+freeze_wav2vec2_conv: False
 
 # Number of accents
-n_accents: 109
+n_accents: 8
 
 # batch type of sorting
 sorting: random # sort the samples
