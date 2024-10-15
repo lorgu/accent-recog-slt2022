@@ -10,10 +10,10 @@ seed: 1987
 __set_seed: !apply:torch.manual_seed [!ref <seed>]
 
 # Set up folders for reading from and writing:
-data_folder: /nas/projects/vokquant/data/common_voice_de/downloaded
-csv_prepared_folder: /nas/projects/vokquant/accent-recog-slt2022/data/de
+data_folder: /home/projects/vokquant/data/common_voice_de/downloaded
+csv_prepared_folder: /home/projects/vokquant/accent-recog-slt2022/data/de
 output_folder: !ref results/ECAPA-TDNN/<seed>
-pretrained_path: /nas/projects/vokquant/accent-recog-slt2022/results/ECAPA-TDNN/DE/spkrec-ecapa-voxceleb/1987/save
+pretrained_path: /home/projects/vokquant/accent-recog-slt2022/results/ECAPA-TDNN/DE/spkrec-ecapa-voxceleb/1987/save
 load_folder: !ref <pretrained_path>/CKPT+2024-04-18+17-38-34+00
 device: 'cuda:0'
 skip_prep: True

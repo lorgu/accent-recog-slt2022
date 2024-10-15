@@ -16,6 +16,7 @@ from sklearn.metrics import (
 )
 import pickle
 import datetime
+import ipdb
 
 """Recipe for performing inference on Accent Classification system with CommonVoice Accent.
 
@@ -82,13 +83,14 @@ class AccID_inf(sb.Brain):
         
         outputs = self.modules.classifier(embeddings)
         
-        export_embeddings = False
+        export_embeddings = True
         if export_embeddings:
             # Save embeddings for t-SNE
-            output_folder = "/nas/projects/vokquant/accent-recog-slt2022/results/ECAPA-TDNN/DE/spkrec-ecapa-voxceleb/1987/"
+            output_folder = "/home/projects/vokquant/accent-recog-slt2022/CommonAccent/results/ECAPA-TDNN/AT/"
+            os.makedirs(output_folder+"/embeddings", exist_ok=True)
             save_path = os.path.join(output_folder, "embeddings")
-            if not os.path.exists(save_path):
-                os.makedirs(save_path)
+            os.makedirs(save_path, exist_ok=True)
+            # print("save_path: ", save_path)
             for i in range(len(batch.id)):
                 # Get wav file name
                 filename = batch.id[i]
@@ -192,7 +194,7 @@ def dataio_prep(hparams):
             csv_path=os.path.join(hparams["csv_prepared_folder"], dataset + ".csv"),
             replacements={"data_root": hparams["data_folder"]},
             dynamic_items=[audio_pipeline, label_pipeline],
-            output_keys=["id", "sig", "accent_encoded"],
+            output_keys=["id", "sig", "accent_encoded", "duration"],
         )
         # filtering out recordings with more than max_audio_length allowed
         datasets[dataset] = datasets[dataset].filtered_sorted(
@@ -231,8 +233,8 @@ def map_indices_to_encoder(indices, encoder):
     return city_codes
 
 def calc_macro_results(y_pred, y_true):
-    print("y_pred: ", y_pred)
-    print("y_true: ", y_true)
+    # print("y_pred: ", y_pred)
+    # print("y_true: ", y_true)
     # calculate macro scores
     f1_macro = f1_score(y_true, y_pred, average='macro')
     print("f1_macro: ", f1_macro)
@@ -269,6 +271,37 @@ def return_embedding(file_path, accid_brain, save_path):
     # print("Embedding saved at: ", os.path.join(save_path, filename + ".pt"))
     return embeddings
 
+def sort_by_states(accent_encoder):
+    city_codes_ids = {}
+    with open(accent_encoder, "r") as f:
+        lines = f.readlines()
+        for line in lines[:-2]:
+            city_code = line.split(' => ')[0]
+            city_code = city_code.replace("'", "")
+            accent_id = line.split(' => ')[1].strip()
+            city_codes_ids[city_code] = accent_id
+    regions = [1, 2, 3, 4, 5, 6, 7, 8]
+    region_ids = []
+    region_city_codes = []
+    for region in regions:
+        region_cities = [city for city in city_codes_ids.keys() if city.startswith(str(region))]
+        region_cities_ids = [city_codes_ids[city] for city in region_cities]
+        region_ids.append(region_cities_ids)
+        region_city_codes.append(region_cities)
+    
+    # check for errors in accent encoder:
+    for k in range(len(region_ids)):
+        tmp = []
+        for i in range(len(region_ids[k])):
+            tmp.append(region_city_codes[k][i][0])
+            # check if all tmp values are the same 
+            if len(set(tmp)) == 1:
+                continue
+            else:
+                print("!!!Not all values are the same. Problem in accent_encoder!!!")
+    
+    return region_ids, region_city_codes
+
 # Recipe begins!
 if __name__ == "__main__":
 
@@ -276,7 +309,7 @@ if __name__ == "__main__":
     if export_embeddings:
         save_path = os.path.join(output_folder, "embeddings")
         # file_path = "/home/lorenzg/.cache/huggingface/datasets/downloads/extracted/7fa940d5e98e14130c923c2dde203c1729e46a596f788672e3580c0dece79a25/de_train_0/common_voice_de_27341092.mp3"
-        # output_folder = "/nas/projects/vokquant/accent-recog-slt2022/results/ECAPA-TDNN/AT/spkrec-ecapa-voxceleb/1987/"
+        # output_folder = "/home/projects/vokquant/accent-recog-slt2022/results/ECAPA-TDNN/AT/spkrec-ecapa-voxceleb/1987/"
     
     # this prevents to load an old model
     auto_rename = True
@@ -352,12 +385,18 @@ if __name__ == "__main__":
         # get the scores after running the forward pass
         y_true_val = torch.cat(AccID_object.error_metrics2.labels).tolist()
         y_pred_val = torch.cat(AccID_object.error_metrics2.scores).tolist()
-        print("y_pred_val: ", y_pred_val)
-        print("y_true_val: ", y_true_val)
+        # print("y_pred_val: ", y_pred_val)
+        # print("y_true_val: ", y_true_val)
 
-        with open("/nas/projects/vokquant/TCS/scripts/region_ids.pkl", "rb") as f:
-            region_ids = pickle.load(f)
+        # with open("/home/projects/vokquant/TCS/scripts/region_ids.pkl", "rb") as f:
+        #     region_ids = pickle.load(f)
         
+        region_ids, region_city_codes = sort_by_states(accent_encoder_file)
+        
+        if region_city_codes[0][0][0] == region_city_codes[0][-1][0]:
+            print("region_city_codes are probably correctly sorted by states")
+        
+        # ipdb.set_trace()
         region_1 = region_ids[0]
         region_2 = region_ids[1]
         region_3 = region_ids[2]
@@ -421,13 +460,27 @@ if __name__ == "__main__":
 
         # retrieve a list of classes
         classes = [i[1] for i in accent_encoder.ind2lab.items()]
-
+        classes_in_test_set = set(y_true)
+        classes_in_mapped_test_set = set(y_true_val_mapped)
+        
         with open(
             f"{hparams['output_folder']}/classification_report_{set_name}.txt", "w"
         ) as f:
             f.write(classification_report(y_true, y_pred))
         print("output_folder: ", hparams["output_folder"])
 
+        # print the classification report only for the classes in the test set
+        with open(
+            f"{hparams['output_folder']}/classification_report_{set_name}_filtered.txt", "w"
+        ) as f:
+            f.write(classification_report(y_true, y_pred, labels=list(classes_in_test_set)))
+        
+        # print the classification report for the mapped classes
+        with open(
+            f"{hparams['output_folder']}/classification_report_{set_name}_states.txt", "w"
+        ) as f:
+            f.write(classification_report(y_true_val_mapped, y_pred_val_mapped, labels=list(classes_in_mapped_test_set)))
+        
         # create the confusion matrix and plot it
         cm = confusion_matrix(y_true, y_pred, labels=classes)
         disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=classes)
@@ -437,8 +490,19 @@ if __name__ == "__main__":
         disp.figure_.savefig(
             f"{hparams['output_folder']}/conf_mat_{set_name}.png", dpi=300, bbox_inches='tight'
         )
+        
+        cm_mapped = confusion_matrix(y_true_val_mapped, y_pred_val_mapped, labels=[0, 1, 2, 3, 4, 5, 6, 7])
+        disp_mapped = ConfusionMatrixDisplay(confusion_matrix=cm_mapped, display_labels=[0, 1, 2, 3, 4, 5, 6, 7])
+        disp_mapped.plot()
+        disp_mapped.ax_.tick_params(axis="x", labelrotation=45, labelsize=4)
+        disp_mapped.ax_.tick_params(axis="y", labelsize=4)
+        disp_mapped.figure_.savefig(
+            f"{hparams['output_folder']}/conf_mat_{set_name}_states.png", dpi=300, bbox_inches='tight'
+        )
+        
         return y_true, y_pred
 
+    print("test set:")
     # Load the best checkpoint for evaluation of test set
     test_stats = accid_brain.evaluate(
         test_set=datasets["test"],
@@ -448,6 +512,7 @@ if __name__ == "__main__":
     # print_confusion_matrix(accid_brain, set_name="test_mini2")
     print_confusion_matrix(accid_brain, set_name="test")
 
+    print("dev set:")
     # Load the best checkpoint for evaluation of dev set
     test_stats = accid_brain.evaluate(
         test_set=datasets["dev"],

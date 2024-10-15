@@ -294,8 +294,8 @@ def dataio_prep(hparams):
     accent_encoder = sb.dataio.encoder.CategoricalEncoder()
 
     # 2. Define audio pipeline:
-    @sb.utils.data_pipeline.takes("wav")
-    @sb.utils.data_pipeline.provides("sig")
+    # @sb.utils.data_pipeline.takes("wav")
+    # @sb.utils.data_pipeline.provides("sig")
     def audio_pipeline(wav):
         """Load the signal, and pass it and its length to the corruption class.
         This is done on the CPU in the `collate_fn`."""
@@ -304,8 +304,16 @@ def dataio_prep(hparams):
         sig, _ = librosa.load(wav, sr=hparams["sample_rate"])
         sig = torch.tensor(sig)
         return sig
-
-    sb.dataio.dataset.add_dynamic_item(datasets, audio_pipeline)
+##
+    @sb.utils.data_pipeline.takes("wav","duration","offset")
+    @sb.utils.data_pipeline.provides("sig")
+    def audio_offset_pipeline(wav,duration,offset):      
+        sig, sr = librosa.load(wav,  sr=hparams["sample_rate"], offset=int(offset), duration=10)
+        sig = torch.tensor(sig)
+        return sig
+##
+    # sb.dataio.dataset.add_dynamic_item(datasets, audio_pipeline)
+    sb.dataio.dataset.add_dynamic_item(datasets, audio_offset_pipeline)
 
     # 3. Define label pipeline:
     @sb.utils.data_pipeline.takes("accent")
@@ -348,6 +356,7 @@ def dataio_prep(hparams):
             length_func=lambda x: x["duration"],
             shuffle=dynamic_hparams["shuffle_ex"],
             batch_ordering=dynamic_hparams["batch_ordering"],
+            drop_last=True,
         )
 
         valid_batch_sampler = DynamicBatchSampler(
@@ -426,7 +435,26 @@ if __name__ == "__main__":
         run_opts=run_opts,
         checkpointer=hparams["checkpointer"],
     )
-
+    # print(aid_brain.modules)
+    # if hparams has "freeze_embedding"
+    try:
+        hparams["freeze_embedding"]
+    except KeyError:
+        hparams["freeze_embedding"] = False
+    
+    try:
+        hparams["freeze_classifier"]
+    except KeyError:
+        hparams["freeze_classifier"] = False
+    
+    if hparams["freeze_embedding"]:
+        for param in aid_brain.modules.embedding_model.parameters():
+            param.requires_grad = False
+    if hparams["freeze_classifier"]:
+        for param in aid_brain.modules.classifier.parameters():
+            print("freezing classifier")
+            param.requires_grad = False
+            
     # adding objects to trainer:
     train_dataloader_opts = hparams["train_dataloader_opts"]
     valid_dataloader_opts = hparams["valid_dataloader_opts"]

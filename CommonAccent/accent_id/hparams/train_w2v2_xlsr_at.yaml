@@ -6,15 +6,15 @@
 # #################################
 
 # Seed needs to be set at top of yaml, before objects with parameters are made
-seed: 10000
+seed: 10001
 __set_seed: !apply:torch.manual_seed [!ref <seed>]
 
 # Set up folders for reading from and writing to
 # Dataset will be downloaded to the `data_folder`
 # data_folder: !PLACEHOLDER # e.g. /localscratch/common_voice_kpd/
 data_folder: /notused/
-csv_prepared_folder: /nas/projects/vokquant/accent-recog-slt2022/CommonAccent/data/at
-output_folder: !ref results/W2V2/xlsr-53-<avg_pool_class>/<seed>
+csv_prepared_folder: /home/projects/vokquant/accent-recog-slt2022/CommonAccent/data/at
+output_folder: !ref /home/projects/vokquant/accent-recog-slt2022/CommonAccent/results/W2V2/xlsr-53-<avg_pool_class>/<seed>
 save_folder: !ref <output_folder>/save
 rir_folder: !ref data/rir_folder
 train_log: !ref <output_folder>/train_log.txt
@@ -40,8 +40,8 @@ acc_computer: !name:speechbrain.utils.Accuracy.AccuracyStats
 
 # Training Parameters
 sample_rate: 16000
-number_of_epochs: 4
-batch_size: 2   #will be overriden by .sh script
+number_of_epochs: 20
+batch_size: 4   #will be overriden by .sh script
 
 # set to TRUE to freeze all wav2vec2
 freeze_wav2vec2: False
@@ -57,7 +57,7 @@ sorting: random # sort the samples
 
 # This setup works well for RTX 3090 24GB GPU, adapts it to your needs.
 # Or turn it off (but training speed will decrease)
-dynamic_batching: False
+dynamic_batching: True
 max_batch_len: 100 # XLSR is way bigger than w2v2-base, this works well
 num_bucket: 200
 num_workers: 4
@@ -90,7 +90,7 @@ test_dataloader_opts:
     num_workers: !ref <num_workers>
 ##
 # variable to control whether to apply augmentation or not:
-apply_augmentation: False
+apply_augmentation: True
 
 # Added noise and reverb come from OpenRIR dataset, automatically
 # downloaded and prepared with this Environmental Corruption class.
@@ -131,7 +131,7 @@ output_mlp: !new:speechbrain.nnet.linear.Linear
     bias: False
 
 preout_mlp: !new:speechbrain.lobes.models.VanillaNN.VanillaNN
-   input_shape: [null, null, !ref <encoder_dim>]
+   input_shape: [null, null, !ref <encoder_dim>]    # first two dimensions are flexible, VanillaNN basic feedforward nn
    activation: !ref <activation>
    dnn_blocks: !ref <dnn_layers>
    dnn_neurons: !ref <encoder_dim>
@@ -148,10 +148,11 @@ modules:
     env_corrupt: !ref <env_corrupt>
     augmentation: !ref <augmentation>
     wav2vec2: !ref <wav2vec2>
+    preout_mlp: !ref <preout_mlp>
     output_mlp: !ref <output_mlp>
 
 model: !new:torch.nn.ModuleList
-   - [!ref <output_mlp>]
+   - [!ref <preout_mlp>, !ref <output_mlp>]
 
 # Additive Angular Margin
 # compute_cost: !new:speechbrain.nnet.losses.LogSoftmaxWrapper

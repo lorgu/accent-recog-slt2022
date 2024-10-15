@@ -22,15 +22,15 @@ cmd=none
 
 # model from HF hub, it could be another one, e.g., facebook/wav2vec2-base
 wav2vec2_hub="facebook/wav2vec2-large-xlsr-53"
-seed="10000"
-apply_augmentation="False"
+seed="10001"
+apply_augmentation="True"
 max_batch_len=50
-batch_size=2
+# batch_size=4
 
 # data folder:
 language_id="de"
-csv_prepared_folder="/nas/projects/vokquant/accent-recog-slt2022/CommonAccent/data/at"
-output_dir="/nas/projects/vokquant/accent-recog-slt2022/CommonAccent/results/W2V2/AT"
+csv_prepared_folder="/home/projects/vokquant/accent-recog-slt2022/CommonAccent/data/at"
+output_dir="/home/projects/vokquant/accent-recog-slt2022/CommonAccent/results/W2V2/AT"
 
 # If augmentation is defined:
 if [ "$apply_augmentation" == 'True' ]; then
@@ -58,7 +58,7 @@ $cmd python3 accent_id/train_w2v2.py accent_id/hparams/train_w2v2_xlsr_at.yaml \
     --rir_folder="$rir_folder" \
     --csv_prepared_folder=$csv_prepared_folder \
     --apply_augmentation="$apply_augmentation" \
-    --max_batch_len="$max_batch_len" --batch_size="$batch_size" \
+    --max_batch_len="$max_batch_len" \
     --output_folder="$output_folder" \
     --wav2vec2_hub="$wav2vec2_hub" 
 

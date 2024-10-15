@@ -6,37 +6,50 @@
 # #################################
 
 # Seed needs to be set at top of yaml, before objects with parameters are made
-seed: 2987
+seed: 10001
 __set_seed: !apply:torch.manual_seed [!ref <seed>]
 
 # Set up folders for reading from and writing:
-data_folder: /nas/projects/vokquant/data/common_voice_de/downloaded
-csv_prepared_folder: /nas/projects/vokquant/accent-recog-slt2022/data/de
-output_folder: !ref results/W2V2/<seed>
-pretrained_path: /nas/projects/vokquant/accent-recog-slt2022/results/W2V2/DE/wav2vec2-large-xlsr-53/2987/save/
-load_folder: !ref <pretrained_path>/CKPT+2024-04-24+22-47-49+00
+data_folder: /notused/
+csv_prepared_folder: /home/projects/vokquant/accent-recog-slt2022/CommonAccent/data/at
+output_folder: !ref /home/projects/vokquant/accent-recog-slt2022/CommonAccent/results/W2V2/AT/wav2vec2-large-xlsr-53-augmented/<seed>
+save_folder: !ref <output_folder>/save
+pretrained_path: !ref /home/projects/vokquant/accent-recog-slt2022/CommonAccent/results/W2V2/
+# <output_folder>/save
+load_folder: !ref <save_folder>/CKPT+2024-09-18+16-16-06+00
 device: 'cuda:0'
+# device: 'cpu'
 skip_prep: True
 # max audio lenth allowed, higher than this is dropped
-max_audio_length: 10
+max_audio_length: 5
 
 # Feature parameters btw: 40 - 80
 n_mels: 80
 
 # Training Parameters
 sample_rate: 16000
-batch_size: 8
-n_languages: 7
-# emb_dim: 192 # dimensionality of the embeddings
+batch_size: 16
+# n_languages: 109
+n_accents: 109
+wav2vec2_hub: "facebook/wav2vec2-large-xlsr-53" # dimension of this model is 1024
 emb_dim: 1024 # dimensionality of the embeddings
 encoder_dim: 1024
+num_workers: 8
+
 
 test_dataloader_options:
-    batch_size: 8
-    shuffle: True
+    batch_size: !ref <batch_size>
+    shuffle: False
+    num_workers: !ref <num_workers>
 
 # variable to control whether to apply augmentation or not:
 apply_augmentation: False
+
+augmentation: !new:speechbrain.lobes.augment.TimeDomainSpecAugment
+   sample_rate: !ref <sample_rate>
+   speeds: [95, 100, 105]
+
+acc_computer: !name:speechbrain.utils.Accuracy.AccuracyStats
 
 # Feature extraction
 compute_features: !new:speechbrain.lobes.features.Fbank
@@ -47,35 +60,66 @@ mean_var_norm: !new:speechbrain.processing.features.InputNormalization
     norm_type: sentence
     std_norm: False
 
-# To design a custom model, either just edit the simple CustomModel
-# class that's listed here, or replace this `!new` call with a line
-# pointing to a different file you've defined.
+# embedding_model: !new:speechbrain.lobes.models.huggingface_wav2vec.HuggingFaceWav2Vec2
+#     source: !ref facebook/wav2vec2-large-xlsr-53
+#     save_path: !ref <load_folder>/embedding_model.ckpt
 
-# Embedding Model
-# embedding_model: !new:speechbrain.lobes.models.ECAPA_TDNN.ECAPA_TDNN
-#     input_size: !ref <n_mels>
-#     activation: !name:torch.nn.LeakyReLU
-#     channels: [1024, 1024, 1024, 1024, 3072]
-#     kernel_sizes: [5, 3, 3, 3, 1]
-#     dilations: [1, 2, 3, 4, 1]
-#     attention_channels: 128
-#     lin_neurons: !ref <emb_dim>
+freeze_wav2vec2: False
+# set to true to freeze the CONV part of the wav2vec2 model
+# We see an improvement of 2% with freezing CNNs
+freeze_wav2vec2_conv: False
 
-embedding_model: !new:speechbrain.lobes.models.huggingface_wav2vec.HuggingFaceWav2Vec2
-    source: !ref facebook/wav2vec2-large-xlsr-53
-    save_path: !ref <load_folder>/embedding_model.ckpt
-    
-# Classifier based on cosine distance
-classifier: !new:speechbrain.lobes.models.huggingface_wav2vec.Classifier
-    input_size: !ref <emb_dim>
-    num_classes: !ref <n_languages>
+# Model parameters
+activation: !name:torch.nn.GELU
+dnn_layers: 2
+dnn_neurons: 1024
+
+# front end Wav2vec2 - main model
+wav2vec2: !new:speechbrain.lobes.models.huggingface_wav2vec.HuggingFaceWav2Vec2
+    source: !ref <wav2vec2_hub>
+    output_norm: True
+    freeze: !ref <freeze_wav2vec2>
+    freeze_feature_extractor: !ref <freeze_wav2vec2_conv>
+    save_path: !ref wav2vec2_checkpoint
+
+# possible classes are statpool, adaptivepool, avgpool
+avg_pool_class: statpool
+
+output_mlp: !new:speechbrain.nnet.linear.Linear
+    input_size: !ref <encoder_dim>
+    n_neurons: !ref <n_accents>
+    bias: False
+
+preout_mlp: !new:speechbrain.lobes.models.VanillaNN.VanillaNN
+   input_shape: [null, null, !ref <encoder_dim>]
+   activation: !ref <activation>
+   dnn_blocks: !ref <dnn_layers>
+   dnn_neurons: !ref <encoder_dim>
+
+env_corrupt: !new:speechbrain.lobes.augment.EnvCorrupt
+    # openrir_folder: !ref <rir_folder>
+    openrir_max_noise_len: 3.0  # seconds
+    babble_prob: 0.0
+    reverb_prob: 1.0
+    noise_prob: 1.0
+    noise_snr_low: 0
+    noise_snr_high: 15
+    rir_scale_factor: 1.0
+
+model: !new:torch.nn.ModuleList
+   - [!ref <preout_mlp>, !ref <output_mlp>]
 
 # Loss function to calculate during inference (this is optional)
 # Additive Angular Margin
-compute_cost: !new:speechbrain.nnet.losses.LogSoftmaxWrapper
-    loss_fn: !new:speechbrain.nnet.losses.AdditiveAngularMargin
-        margin: 0.2
-        scale: 30
+# compute_cost: !new:speechbrain.nnet.losses.LogSoftmaxWrapper
+#     loss_fn: !new:speechbrain.nnet.losses.AdditiveAngularMargin
+#         margin: 0.2
+#         scale: 30
+
+compute_cost: !name:speechbrain.nnet.losses.nll_loss
+
+log_softmax: !new:speechbrain.nnet.activations.Softmax
+    apply_log: True
 
 # Keep the error stats here:
 error_stats: !name:speechbrain.utils.metric_stats.MetricStats
@@ -88,20 +132,21 @@ error_stats2: !name:speechbrain.utils.metric_stats.BinaryMetricStats
 # Objects in "modules" dict will have their parameters moved to the correct
 # device, as well as having train()/eval() called on them by the Brain class.
 modules:
-    compute_features: !ref <compute_features>
-    mean_var_norm: !ref <mean_var_norm>    
-    embedding_model: !ref <embedding_model>
-    classifier: !ref <classifier>
+    env_corrupt: !ref <env_corrupt>
+    augmentation: !ref <augmentation>
+    wav2vec2: !ref <wav2vec2>
+    preout_mlp: !ref <preout_mlp>
+    output_mlp: !ref <output_mlp>
 
 label_encoder: !new:speechbrain.dataio.encoder.CategoricalEncoder
 
 # Load fine-tuned model and classifier
 pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
     loadables:
-        embedding_model: !ref <embedding_model>
-        classifier: !ref <classifier>
+        wav2vec2: !ref <wav2vec2>
+        # classifier: !ref <classifier>
         label_encoder: !ref <label_encoder>
     paths:
-        embedding_model: !ref <load_folder>/embedding_model.ckpt
-        classifier: !ref <load_folder>/classifier.ckpt
+        wav2vec2: !ref <load_folder>test/wav2vec2.ckpt
+        # classifier: !ref <load_folder>/classifier.ckpt
         label_encoder: !ref <pretrained_path>/accent_encoder.txt

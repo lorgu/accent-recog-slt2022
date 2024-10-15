@@ -6,20 +6,20 @@
 # #################################
 
 # Seed needs to be set at top of yaml, before objects with parameters are made
-seed: 10001
+seed: 10004
 __set_seed: !apply:torch.manual_seed [!ref <seed>]
 
 # Set up folders for reading from and writing to
 # Dataset will be downloaded to the `data_folder`
 # data_folder: !PLACEHOLDER # e.g. /localscratch/common_voice_kpd/
 data_folder: /notused/
-csv_prepared_folder: /nas/projects/vokquant/accent-recog-slt2022/CommonAccent/data/at
-output_folder: !ref /nas/projects/vokquant/accent-recog-slt2022/CommonAccent/results/ECAPA-TDNN/<seed>
+csv_prepared_folder: /home/projects/vokquant/accent-recog-slt2022/CommonAccent/data/at
+output_folder: !ref /home/projects/vokquant/accent-recog-slt2022/CommonAccent/results/ECAPA-TDNN/<seed>
 save_folder: !ref <output_folder>/save
 rir_folder: !ref data/rir_folder
 train_log: !ref <output_folder>/train_log.txt
 device: 'cuda:0'
-skip_prep: False
+skip_prep: True
 # max audio lenth allowed, higher than this is dropped
 avoid_if_longer_than: 10.0
 
@@ -41,8 +41,8 @@ n_mels: 80
 
 # Training Parameters
 sample_rate: 16000
-number_of_epochs: 20
-batch_size: 2
+number_of_epochs: 50
+batch_size: 4
 n_accents: 109
 emb_dim: 192 # dimensionality of the embeddings
 
@@ -51,10 +51,10 @@ sorting: random # sort the samples
 
 # This setup works well for V100 32GB GPU, adapts it to your needs.
 # Or turn it off (but training speed will decrease)
-dynamic_batching: False
+dynamic_batching: True
 max_batch_len: 600 #
 num_bucket: 200
-num_workers: 2
+num_workers: 4
 
 dynamic_batch_sampler:
    max_batch_len: !ref <max_batch_len>
@@ -80,7 +80,7 @@ test_dataloader_opts:
 apply_augmentation: False
 
 # variable to control whether to load a pre-trained model
-load_pretrained: False
+load_pretrained: True
 
 # Added noise and reverb come from OpenRIR dataset, automatically
 # downloaded and prepared with this Environmental Corruption class.
