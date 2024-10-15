@@ -22,14 +22,14 @@ cmd=none
 
 # model from HF hub, it could be another one, e.g., facebook/wav2vec2-base
 wav2vec2_hub="facebook/wav2vec2-large-xlsr-53"
-seed="10001"
-apply_augmentation="True"
-max_batch_len=50
-# batch_size=4
+seed="1002"
+apply_augmentation="False"
+max_batch_len=10
+batch_size=8
 
 # data folder:
 language_id="de"
-csv_prepared_folder="/home/projects/vokquant/accent-recog-slt2022/CommonAccent/data/at"
+csv_prepared_folder="/home/projects/vokquant/accent-recog-slt2022/CommonAccent/data/at_augmented"
 output_dir="/home/projects/vokquant/accent-recog-slt2022/CommonAccent/results/W2V2/AT"
 
 # If augmentation is defined:
