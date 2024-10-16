@@ -16,6 +16,7 @@ from sklearn.metrics import (
 import pickle
 import datetime
 import ipdb
+import shutil
 
 """Recipe for performing inference on Accent Classification system with CommonVoice Accent.
 
@@ -365,6 +366,7 @@ if __name__ == "__main__":
             print("automatic renaming of model_checkpoints directory")
             datetime = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
             os.rename("./model_checkpoints", f"./model_checkpoints_{datetime}")
+    auto_copy = True
     
     # Reading command line arguments.
     hparams_file, run_opts, overrides = sb.parse_arguments(sys.argv[1:])
@@ -391,7 +393,9 @@ if __name__ == "__main__":
     # Load label encoder (with multi-GPU DDP support)
     # Please, take a look into the lab_enc_file to see the label to index
     # mapping.
-    accent_encoder_file = '/home/projects/vokquant/accent-recog-slt2022/CommonAccent/results/W2V2/AT/wav2vec2-large-xlsr-53/10000/save/accent_encoder.txt'
+    # accent_encoder_file = '/home/projects/vokquant/accent-recog-slt2022/CommonAccent/results/W2V2/AT/wav2vec2-large-xlsr-53/10000/save/accent_encoder.txt'
+    accent_encoder_file = os.path.join(hparams["save_folder"], 'accent_encoder.txt')
+    print("encoder location: ", accent_encoder_file)
     accent_encoder.load_or_create(
         path=accent_encoder_file,
         output_key="accent",
@@ -407,7 +411,13 @@ if __name__ == "__main__":
     else:
         print("Cuda is not available")
     
+    # print("COPYING:" hparams["wav2vec2_checkpoint"])
+    destination = "model_checkpoints"
+    if os.path.exists(destination):
+        shutil.rmtree(destination)
+    shutil.copytree(hparams["wav2vec2_checkpoint"], "model_checkpoints")
     hparams["pretrainer"].load_collected(device=run_opts["device"])
+
     if torch.cuda.is_available():
         print("Cuda is available")
     else:
@@ -436,7 +446,7 @@ if __name__ == "__main__":
         # ipdb.set_trace()
         y_true_val = torch.cat([label.unsqueeze(0) if label.dim() == 0 else label for label in AccID_object.error_metrics2.labels]).tolist()
         # y_true_val = torch.cat(AccID_object.error_metrics2.labels).tolist()
-        print("AccID_object.error_metrics2.labels: ", AccID_object.error_metrics2.labels)
+        # print("AccID_object.error_metrics2.labels: ", AccID_object.error_metrics2.labels)
         # tensors = [score.unsqueeze(0) if score.dim() == 0 else score for score in AccID_object.error_metrics2.scores]
         # print("AccID_object.error_metrics2.scores: ", AccID_object.error_metrics2.scores)
         
