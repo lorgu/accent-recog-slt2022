@@ -4,11 +4,7 @@ chmod +x Miniconda3-latest-Linux-x86_64.sh && \
 export PATH="$HOME/miniconda/bin:$PATH" && \
 conda create -n dicla python=3.10 -y && \
 source $HOME/miniconda/bin/activate dicla && \
-mkdir /home && \
-mkdir /home/projects && \
-mkdir /home/projects/vokquant && \
-mkdir /home/projects/vokquant/data && \
-mkdir /home/projects/vokquant/data/dicla && \
+mkdir -p /home/projects/vokquant/data/dicla && \
 git clone https://github.com/lorgu/accent-recog-slt2022 /home/projects/vokquant/accent-recog-slt2022 && \
 cd /home/projects/vokquant/accent-recog-slt2022/ && \
 pip install -r requirements.txt && \
