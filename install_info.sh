@@ -10,4 +10,4 @@ cd /home/projects/vokquant/accent-recog-slt2022/ && \
 pip install -q -r requirements.txt && \
 pip install -q torchtext==0.13.1 torch==1.12.1+cu116 torchvision==0.13.1+cu116 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu116 && \
 apt-get update && apt-get install -y pigz && \
-tar --use-compress-program=pigz -xf /usr/at_augmented.tar.gz -C /home/projects/vokquant/data/dicla/
+tar --use-compress-program=pigz -xf /workspace/at_augmented.tar.gz -C /home/projects/vokquant/data/dicla/
