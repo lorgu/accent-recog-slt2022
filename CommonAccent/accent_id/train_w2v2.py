@@ -372,21 +372,30 @@ def dataio_prep(hparams):
     accent_encoder = sb.dataio.encoder.CategoricalEncoder()
 
     # 2. Define audio pipeline:
-    @sb.utils.data_pipeline.takes("wav")
+    # @sb.utils.data_pipeline.takes("wav")
+    # @sb.utils.data_pipeline.provides("sig")
+    # def audio_pipeline(wav):
+    #     """Load the signal, and pass it and its length to the corruption class.
+    #     This is done on the CPU in the `collate_fn`."""
+    #     # info = torchaudio.info(wav)
+    #     # sig = sb.dataio.dataio.read_audio(wav)
+    #     # sig = torchaudio.transforms.Resample(
+    #     #     info.sample_rate, hparams["sample_rate"],
+    #     # )(sig)
+    #     sig, _ = librosa.load(wav, sr=hparams["sample_rate"])
+    #     sig = torch.tensor(sig)
+    #     return sig
+
+    # sb.dataio.dataset.add_dynamic_item(datasets, audio_pipeline)
+    
+    @sb.utils.data_pipeline.takes("wav","duration","offset")
     @sb.utils.data_pipeline.provides("sig")
-    def audio_pipeline(wav):
-        """Load the signal, and pass it and its length to the corruption class.
-        This is done on the CPU in the `collate_fn`."""
-        # info = torchaudio.info(wav)
-        # sig = sb.dataio.dataio.read_audio(wav)
-        # sig = torchaudio.transforms.Resample(
-        #     info.sample_rate, hparams["sample_rate"],
-        # )(sig)
-        sig, _ = librosa.load(wav, sr=hparams["sample_rate"])
+    def audio_offset_pipeline(wav,duration,offset):      
+        sig, sr = librosa.load(wav,  sr=hparams["sample_rate"], offset=int(offset), duration=10)
         sig = torch.tensor(sig)
         return sig
 
-    sb.dataio.dataset.add_dynamic_item(datasets, audio_pipeline)
+    sb.dataio.dataset.add_dynamic_item(datasets, audio_offset_pipeline)
 
     # 3. Define label pipeline:
     @sb.utils.data_pipeline.takes("accent")
