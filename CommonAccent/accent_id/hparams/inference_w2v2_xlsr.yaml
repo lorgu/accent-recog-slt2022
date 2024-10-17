@@ -149,6 +149,6 @@ pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
         # classifier: !ref <classifier>
         label_encoder: !ref <label_encoder>
     paths:
-        wav2vec2: !ref <load_folder>test/wav2vec2.ckpt
+        wav2vec2: !ref <load_folder>/wav2vec2.ckpt
         # classifier: !ref <load_folder>/classifier.ckpt
         label_encoder: !ref <pretrained_path>/accent_encoder.txt
