@@ -26,8 +26,8 @@ max_batch_len=400
 n_accents=7
 
 # data folder:
-csv_prepared_folder="/nas/projects/vokquant/accent-recog-slt2022/data/de"
-output_dir="/nas/projects/vokquant/accent-recog-slt2022/results/ECAPA-TDNN/DE/spkrec-ecapa-voxceleb"
+csv_prepared_folder="/home/projects/vokquant/accent-recog-slt2022/data/de"
+output_dir="/home/projects/vokquant/accent-recog-slt2022/results/ECAPA-TDNN/DE/spkrec-ecapa-voxceleb"
 
 # If augmentation is defined:
 if [ "$apply_augmentation" == "True" ]; then

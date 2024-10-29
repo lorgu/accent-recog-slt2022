@@ -148,9 +148,9 @@ def prepare_common_accent(
     >>> from recipes.CommonAccent.common_accent_prepare import prepare_common_accent
     from common_accent_prepare import prepare_common_accent
     >>> data_folder = '/datasets/CommonAccent'
-    data_folder = '/nas/projects/vokquant/data/common_voice_de/'
+    data_folder = '/home/projects/vokquant/data/common_voice_de/'
     >>> save_folder = 'exp/CommonAccent_exp'
-    save_folder = '/nas/projects/vokquant/data/common_voice_de/experiment'
+    save_folder = '/home/projects/vokquant/data/common_voice_de/experiment'
     >>> prepare_common_accent(\
             data_folder,\
             save_folder,\

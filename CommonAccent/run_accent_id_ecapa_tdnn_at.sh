@@ -22,13 +22,12 @@ cmd='none'
 # training vars
 # ecapa_tdnn_hub="speechbrain/spkrec-ecapa-voxceleb/embedding_model.ckpt"
 ecapa_tdnn_hub="speechbrain/lang-id-voxlingua107-ecapa/embedding_model.ckpt"
-seed="2003"
-apply_augmentation="False"
+seed="3006"
+apply_augmentation="True"
 max_batch_len=10 #600
 
 # data folder:
-csv_prepared_folder="/home/projects/vokquant/accent-recog-slt2022/CommonAccent/data/at_augmented"
-output_dir="/home/projects/vokquant/accent-recog-slt2022/CommonAccent/results/ECAPA-TDNN/AT/spkrec-ecapa-voxceleb"
+output_dir="/home/projects/vokquant/accent-recog-slt2022/CommonAccent/results/ECAPA-TDNN/AT/lang-id-voxlingua107-ecapa"
 
 
 # If augmentation is defined:
@@ -58,11 +57,10 @@ max_attempts=1 # Maximum number of attempts before stopping
 while [ $attempt -le $max_attempts ]; do
     echo "Attempt $attempt/$max_attempts"
     
-    if $cmd python3 accent_id/train.py accent_id/hparams/train_ecapa_tdnn_at_states.yaml \
+    if $cmd python3 accent_id/train.py accent_id/hparams/train_ecapa_tdnn_at_regions.yaml \
         --seed=$seed \
         --skip_prep="True" \
         --rir_folder="$rir_folder" \
-        --csv_prepared_folder=$csv_prepared_folder \
         --apply_augmentation="$apply_augmentation" \
         --max_batch_len="$max_batch_len" \
         --output_folder="$output_folder" \

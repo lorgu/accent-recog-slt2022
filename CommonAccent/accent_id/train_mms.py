@@ -9,6 +9,7 @@ import torchaudio
 import librosa
 from common_accent_prepare import prepare_common_accent
 from hyperpyyaml import load_hyperpyyaml
+import pickle
 
 """Recipe for training an Accent Classification system with CommonVoice Accent.
 
@@ -97,12 +98,13 @@ class AID(sb.Brain):
         # ipdb.set_trace()
         # preparing outputs
         outputs = outputs.view(outputs.shape[0], -1)
+        embeddings = outputs
         # print(self.modules)
         # outputs = self.modules.preout_mlp(outputs)
         outputs = self.modules.output_mlp(outputs)
         outputs = self.hparams.log_softmax(outputs)
 
-        return outputs, lens
+        return outputs, lens, embeddings
 
     def compute_objectives(self, inputs, batch, stage):
         """Computes the loss given the predicted and targeted outputs.
@@ -122,7 +124,7 @@ class AID(sb.Brain):
             A one-element tensor used for backpropagating the gradient.
         """
 
-        predictions, lens = inputs
+        predictions, lens, embeddings = inputs
 
         # get the targets from the batch
         targets = batch.accent_encoded.data
@@ -137,7 +139,11 @@ class AID(sb.Brain):
 
             # if hasattr(self.hparams.lr_annealing, "on_batch_end"):
             #     self.hparams.lr_annealing.on_batch_end(self.optimizer)
-
+        
+        # save embeddings
+        export_embeddings = True
+        if export_embeddings:
+            self.save_embeddings_and_labels(embeddings, targets, stage)
         # get the final loss
         loss = self.hparams.compute_cost(predictions, targets)
 
@@ -170,8 +176,9 @@ class AID(sb.Brain):
             self.wav2vec2_optimizer.zero_grad()
             self.optimizer.zero_grad()
             self.optimizer_step += 1
-
-        self.on_fit_batch_end(batch, predictions, loss, should_step)
+        # only use first two variables in prediction
+        # predictions = predictions[0:2]
+        self.on_fit_batch_end(batch, predictions[0:2], loss, should_step)
         return loss.detach().cpu()
 
     
@@ -292,6 +299,34 @@ class AID(sb.Brain):
         self.wav2vec2_optimizer.zero_grad(set_to_none)
         self.optimizer.zero_grad(set_to_none)
 
+    def save_embeddings_and_labels(self, embeddings, labels, stage):
+        """Saves embeddings and labels to a file for later analysis."""
+        if stage == sb.Stage.TEST:
+            embeddings_np = embeddings.detach().cpu().numpy()
+            labels_np = labels.detach().cpu().numpy()
+            save_dir = hparams["save_folder"]
+            save_dir = os.path.join(save_dir, "embeddings")
+            os.makedirs(save_dir, exist_ok=True)
+            # Define a file name based on stage
+            filename = f"{save_dir}/embeddings_{stage}.pkl"
+            if os.path.exists(filename):
+                # add timestamp to filename
+                import time
+                timestamp = time.strftime("%Y%m%d-%H%M")
+                filename = f"{save_dir}/embeddings_{stage}_{timestamp}.pkl"
+                print(f"Filename already exists. Saving to {filename}")
+            
+            # remove batch size dimension and append to pickle file one by one
+            embeddings_np_list = []
+            for i in range(embeddings_np.shape[0]):
+                id = labels_np[i]
+                embedding = embeddings_np[i]
+                embeddings_np_list.append((id, embedding))
+            
+            # append to pickle file
+            with open(filename, 'ab') as f:
+                pickle.dump(embeddings_np_list, f)
+
 def dataio_prep(hparams):
     """This function prepares the datasets to be used in the brain class.
     It also defines the data processing pipeline through user-defined functions.
@@ -372,21 +407,29 @@ def dataio_prep(hparams):
     accent_encoder = sb.dataio.encoder.CategoricalEncoder()
 
     # 2. Define audio pipeline:
-    @sb.utils.data_pipeline.takes("wav")
+    # @sb.utils.data_pipeline.takes("wav")
+    # @sb.utils.data_pipeline.provides("sig")
+    # def audio_pipeline(wav):
+    #     """Load the signal, and pass it and its length to the corruption class.
+    #     This is done on the CPU in the `collate_fn`."""
+    #     # info = torchaudio.info(wav)
+    #     # sig = sb.dataio.dataio.read_audio(wav)
+    #     # sig = torchaudio.transforms.Resample(
+    #     #     info.sample_rate, hparams["sample_rate"],
+    #     # )(sig)
+    #     sig, _ = librosa.load(wav, sr=hparams["sample_rate"])
+    #     sig = torch.tensor(sig)
+    #     return sig
+##
+    @sb.utils.data_pipeline.takes("wav","duration","offset")
     @sb.utils.data_pipeline.provides("sig")
-    def audio_pipeline(wav):
-        """Load the signal, and pass it and its length to the corruption class.
-        This is done on the CPU in the `collate_fn`."""
-        # info = torchaudio.info(wav)
-        # sig = sb.dataio.dataio.read_audio(wav)
-        # sig = torchaudio.transforms.Resample(
-        #     info.sample_rate, hparams["sample_rate"],
-        # )(sig)
-        sig, _ = librosa.load(wav, sr=hparams["sample_rate"])
+    def audio_offset_pipeline(wav,duration,offset):      
+        sig, sr = librosa.load(wav,  sr=hparams["sample_rate"], offset=int(offset), duration=10)
         sig = torch.tensor(sig)
         return sig
-
-    sb.dataio.dataset.add_dynamic_item(datasets, audio_pipeline)
+##
+    # sb.dataio.dataset.add_dynamic_item(datasets, audio_pipeline)
+    sb.dataio.dataset.add_dynamic_item(datasets, audio_offset_pipeline)
 
     # 3. Define label pipeline:
     @sb.utils.data_pipeline.takes("accent")
@@ -557,4 +600,28 @@ if __name__ == "__main__":
         min_key="error_rate",
         test_loader_kwargs=hparams["test_dataloader_opts"],
     )
+    # accents_lists_int=range(int(hparams["n_accents"]))
+    # accents_list=[]
 
+    # for a in accents_lists_int:
+    #     accents_list.append(str(a))
+    
+    # print("Test for all accents")
+    # print("accents_list: ", accents_list)
+    # #get available accents in test_data using filtered_sorted
+    # unique_accents = set([data['accent_encoded'].item() for data in test_data])
+    # for acc in accents_list:
+    #     if int(acc) in unique_accents:
+    #         test_data_acc = test_data.filtered_sorted(key_test={"accent_encoded": lambda x: x.item() == int(acc)})
+    #         # ipdb.set_trace()
+    #         print("test_data_acc: ", test_data_acc)
+    #         # get length of test_data_acc
+    #         print("len(test_data_acc): ", len(test_data_acc))
+
+    #         print("Test for: "+acc)
+            
+    #         test_stats = aid_brain.evaluate(
+    #             test_set=test_data_acc,
+    #             min_key="error_rate",
+    #             test_loader_kwargs=hparams["test_dataloader_opts"],
+    #         )

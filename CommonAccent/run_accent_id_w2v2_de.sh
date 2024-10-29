@@ -29,9 +29,9 @@ batch_size=1
 
 # data folder:
 language_id="de"
-csv_prepared_folder="/nas/projects/vokquant/accent-recog-slt2022/data/de"
+csv_prepared_folder="/home/projects/vokquant/accent-recog-slt2022/data/de"
 # csv_prepared_folder="data/$language_id"
-output_dir="/nas/projects/vokquant/accent-recog-slt2022/results/W2V2/DE/"
+output_dir="/home/projects/vokquant/accent-recog-slt2022/results/W2V2/DE/"
 # output_dir="results/W2V2/EN"
 
 # If augmentation is defined:

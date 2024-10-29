@@ -6,14 +6,14 @@
 # #################################
 
 # Seed needs to be set at top of yaml, before objects with parameters are made
-seed: 1001
+seed: 7001
 __set_seed: !apply:torch.manual_seed [!ref <seed>]
 
 # Set up folders for reading from and writing to
 # Dataset will be downloaded to the `data_folder`
 # data_folder: !PLACEHOLDER # e.g. /localscratch/common_voice_kpd/
 data_folder: /notused/
-csv_prepared_folder: /home/projects/vokquant/accent-recog-slt2022/CommonAccent/data/at_augmented
+csv_prepared_folder: /home/projects/vokquant/accent-recog-slt2022/CommonAccent/data/at_augmented_regions
 output_folder: !ref /home/projects/vokquant/accent-recog-slt2022/CommonAccent/results/W2V2/xlsr-53-<avg_pool_class>/<seed>
 save_folder: !ref <output_folder>/save
 rir_folder: !ref data/rir_foolder
@@ -24,7 +24,7 @@ skip_prep: True
 avoid_if_longer_than: 10.0
 
 # URL for the biggest Fairseq english wav2vec2 model.
-wav2vec2_hub: "facebook/wav2vec2-large-xlsr-53" # dimension of this model is 1024
+wav2vec2_hub: "facebook/wav2vec2-large-xlsr-53"
 # Model parameters
 encoder_dim: 1024
 
@@ -40,7 +40,7 @@ acc_computer: !name:speechbrain.utils.Accuracy.AccuracyStats
 
 # Training Parameters
 sample_rate: 16000
-number_of_epochs: 30
+number_of_epochs: 20
 batch_size: 8   #will be overriden by .sh script
 
 # set to TRUE to freeze all wav2vec2
@@ -50,7 +50,7 @@ freeze_wav2vec2: False
 freeze_wav2vec2_conv: False
 
 # Number of accents
-n_accents: 8
+n_accents: 109
 
 # batch type of sorting
 sorting: random # sort the samples
@@ -71,14 +71,6 @@ dynamic_batch_sampler:
    max_batch_ex: 128
 
 # Dataloader options
-# train_dataloader_opts:
-#     num_workers: !ref <num_workers>
-# valid_dataloader_opts:
-#     num_workers: !ref <num_workers>
-# test_dataloader_opts:
-#     num_workers: !ref <num_workers>
-
-##
 train_dataloader_opts:
     batch_size: !ref <batch_size>
     num_workers: !ref <num_workers>
@@ -90,7 +82,7 @@ test_dataloader_opts:
     num_workers: !ref <num_workers>
 ##
 # variable to control whether to apply augmentation or not:
-apply_augmentation: True
+apply_augmentation: False
 
 # Added noise and reverb come from OpenRIR dataset, automatically
 # downloaded and prepared with this Environmental Corruption class.
@@ -200,3 +192,25 @@ checkpointer: !new:speechbrain.utils.checkpoints.Checkpointer
         lr_annealing_output: !ref <lr_annealing>
         lr_annealing_wav2vec2: !ref <lr_annealing_wav2vec2>
         counter: !ref <epoch_counter>
+
+pretrained_path: Jzuluaga/accent-id-commonaccent_xlsr-de-german
+
+load_pretrained: True
+
+mean_var_norm: !new:speechbrain.processing.features.InputNormalization
+    norm_type: sentence
+    std_norm: False
+
+label_encoder: !new:speechbrain.dataio.encoder.CategoricalEncoder
+
+pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
+    loadables:
+        mean_var_norm: !ref <mean_var_norm>
+        wav2vec2: !ref <wav2vec2>
+        # model: !ref <model>
+        # label_encoder: !ref <label_encoder>
+    paths:
+        mean_var_norm: !ref <pretrained_path>/normalizer_input.ckpt
+        wav2vec2: !ref <pretrained_path>/wav2vec2.ckpt
+        # model: !ref <pretrained_path>/model.ckpt
+        # label_encoder: !ref <pretrained_path>/label_encoder.txt

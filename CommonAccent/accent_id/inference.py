@@ -166,17 +166,25 @@ def dataio_prep(hparams):
     """
 
     # Define audio pipeline
-    @sb.utils.data_pipeline.takes("wav")
+    # @sb.utils.data_pipeline.takes("wav")
+    # @sb.utils.data_pipeline.provides("sig")
+    # def audio_pipeline(wav):
+    #     """Load the signal, and pass it and its length to the corruption class.
+    #     This is done on the CPU in the `collate_fn`."""
+    #     # sig, _ = torchaudio.load(wav)
+    #     # sig = sig.transpose(0, 1).squeeze(1)
+    #     # Problem with Torchaudio while reading MP3 files (CommonVoice)
+    #     sig, _ = librosa.load(wav, sr=hparams["sample_rate"])
+    #     sig = torch.tensor(sig)
+    #     return sig
+    @sb.utils.data_pipeline.takes("wav","duration","offset")
     @sb.utils.data_pipeline.provides("sig")
-    def audio_pipeline(wav):
-        """Load the signal, and pass it and its length to the corruption class.
-        This is done on the CPU in the `collate_fn`."""
-        # sig, _ = torchaudio.load(wav)
-        # sig = sig.transpose(0, 1).squeeze(1)
-        # Problem with Torchaudio while reading MP3 files (CommonVoice)
-        sig, _ = librosa.load(wav, sr=hparams["sample_rate"])
+    def audio_offset_pipeline(wav,duration,offset):      
+        sig, sr = librosa.load(wav,  sr=hparams["sample_rate"], offset=int(offset), duration=10)
         sig = torch.tensor(sig)
         return sig
+
+    # sb.dataio.dataset.add_dynamic_item(datasets, audio_offset_pipeline)
 
     # Define label pipeline:
     @sb.utils.data_pipeline.takes("accent")
@@ -193,7 +201,7 @@ def dataio_prep(hparams):
         datasets[dataset] = sb.dataio.dataset.DynamicItemDataset.from_csv(
             csv_path=os.path.join(hparams["csv_prepared_folder"], dataset + ".csv"),
             replacements={"data_root": hparams["data_folder"]},
-            dynamic_items=[audio_pipeline, label_pipeline],
+            dynamic_items=[audio_offset_pipeline, label_pipeline],
             output_keys=["id", "sig", "accent_encoded", "duration"],
         )
         # filtering out recordings with more than max_audio_length allowed

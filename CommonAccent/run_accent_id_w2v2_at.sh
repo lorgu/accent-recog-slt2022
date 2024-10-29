@@ -22,14 +22,13 @@ cmd=none
 
 # model from HF hub, it could be another one, e.g., facebook/wav2vec2-base
 wav2vec2_hub="facebook/wav2vec2-large-xlsr-53"
-seed="1002"
-apply_augmentation="False"
+seed="7001"
+apply_augmentation="True"
 max_batch_len=10
-batch_size=8
 
 # data folder:
 language_id="de"
-csv_prepared_folder="/home/projects/vokquant/accent-recog-slt2022/CommonAccent/data/at_augmented"
+csv_prepared_folder="/home/projects/vokquant/accent-recog-slt2022/CommonAccent/data/at_augmented_regions"
 output_dir="/home/projects/vokquant/accent-recog-slt2022/CommonAccent/results/W2V2/AT"
 
 # If augmentation is defined:
@@ -62,5 +61,5 @@ $cmd python3 accent_id/train_w2v2.py accent_id/hparams/train_w2v2_xlsr_at.yaml \
     --output_folder="$output_folder" \
     --wav2vec2_hub="$wav2vec2_hub" 
 
-echo "Done training of $model in $output_folder"
+echo "Done training of model $wav2vec2_hub in $output_folder"
 exit 0

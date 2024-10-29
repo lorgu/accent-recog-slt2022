@@ -9,6 +9,7 @@ import torchaudio
 import librosa
 from common_accent_prepare import prepare_common_accent
 from hyperpyyaml import load_hyperpyyaml
+import ipdb
 
 """Recipe for training an Accent Classification system with CommonVoice Accent.
 
@@ -51,8 +52,14 @@ class AID(sb.Brain):
 
         # Feature extraction and normalization
         feats = self.modules.compute_features(wavs)
-        feats = self.modules.mean_var_norm_input(feats, lens)
-
+        # check if mean_var_norm_input is available
+        # speechbrain uses mean_var_norm so i want to use this as well, but want to
+        # keep the option to use mean_var_norm_input for older models
+        
+        if hasattr(self.modules, "mean_var_norm_input"):
+            feats = self.modules.mean_var_norm_input(feats, lens)
+        elif hasattr(self.modules, "mean_var_norm"):
+            feats = self.modules.mean_var_norm(feats, lens)
         return feats, lens
 
     def compute_forward(self, batch, stage):
@@ -179,6 +186,7 @@ class AID(sb.Brain):
             stats = {
                 "loss": stage_loss,
                 "error_rate": self.error_metrics.summarize("average"),
+                "acc": 1 - self.error_metrics.summarize("average"),
             }
 
         # At the end of validation...
@@ -485,3 +493,28 @@ if __name__ == "__main__":
         min_key="error_rate",
         test_loader_kwargs=hparams["test_dataloader_opts"],
     )
+    accents_lists_int=range(int(hparams["n_accents"]))
+    accents_list=[]
+
+    for a in accents_lists_int:
+        accents_list.append(str(a))
+    
+    print("Test for all accents")
+    print("accents_list: ", accents_list)
+    #get available accents in test_data using filtered_sorted
+    unique_accents = set([data['accent_encoded'].item() for data in test_data])
+    for acc in accents_list:
+        if int(acc) in unique_accents:
+            test_data_acc = test_data.filtered_sorted(key_test={"accent_encoded": lambda x: x.item() == int(acc)})
+            # ipdb.set_trace()
+            print("test_data_acc: ", test_data_acc)
+            # get length of test_data_acc
+            print("len(test_data_acc): ", len(test_data_acc))
+
+            print("Test for: "+acc)
+            
+            test_stats = aid_brain.evaluate(
+                test_set=test_data_acc,
+                min_key="error_rate",
+                test_loader_kwargs=hparams["test_dataloader_opts"],
+            )

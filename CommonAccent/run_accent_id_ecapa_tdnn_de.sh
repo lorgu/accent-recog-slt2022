@@ -25,8 +25,8 @@ apply_augmentation="True"
 max_batch_len=300 #600
 
 # data folder:
-# csv_prepared_folder="/nas/projects/vokquant/accent-recog-slt2022/data/de"
-# output_dir="/nas/projects/vokquant/accent-recog-slt2022/results/ECAPA-TDNN/DE/spkrec-ecapa-voxceleb"
+# csv_prepared_folder="/home/projects/vokquant/accent-recog-slt2022/data/de"
+# output_dir="/home/projects/vokquant/accent-recog-slt2022/results/ECAPA-TDNN/DE/spkrec-ecapa-voxceleb"
 csv_prepared_folder="/content/accent-recog-slt2022/data"
 output_dir="/content/accent-recog-slt2022/CommonAccent/results/ECAPA-TDNN/DE/spkrec-ecapa-voxceleb"
 

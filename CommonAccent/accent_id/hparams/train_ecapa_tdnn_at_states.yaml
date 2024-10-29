@@ -6,10 +6,10 @@
 # #################################
 
 # Seed needs to be set at top of yaml, before objects with parameters are made
-seed: 2003
+seed: 2005
 __set_seed: !apply:torch.manual_seed [!ref <seed>]
 
-freeze_embedding: False
+freeze_embedding: True
 freeze_classifier: False
 
 # Set up folders for reading from and writing to
@@ -19,7 +19,7 @@ data_folder: /notused/
 #csv_prepared_folder is overwritten by .sh script
 csv_prepared_folder: /home/projects/vokquant/accent-recog-slt2022/CommonAccent/data/at_augmented
 #output_folder is overwritten by .sh script
-output_folder: !ref /home/projects/vokquant/accent-recog-slt2022/CommonAccent/results/ECAPA-TDNN/<seed>
+output_folder: !ref /home/projects/vokquant/accent-recog-slt2022/CommonAccent/results/ECAPA-TDNN/AT/lang-id-voxlingua107-ecapa/<seed>
 save_folder: !ref <output_folder>/save
 rir_folder: !ref data/rir_folder
 train_log: !ref <output_folder>/train_log.txt
@@ -33,7 +33,7 @@ avoid_if_longer_than: 10.0
 # for speaker-id (this leads to a performance improvement).
 
 # ecapa_tdnn_hub: speechbrain/spkrec-ecapa-voxceleb/embedding_model.ckpt
-ecapa_tdnn_hub: speechbrain/lang-id-voxlingua107-ecapa
+ecapa_tdnn_hub: speechbrain/lang-id-voxlingua107-ecapa/embedding_model.ckpt
 
 # The train logger writes training statistics to a file, as well as stdout.
 train_logger: !new:speechbrain.utils.train_logger.FileTrainLogger
@@ -44,11 +44,11 @@ error_stats: !name:speechbrain.utils.metric_stats.MetricStats
         reduction: batch
 
 # Feature parameters btw: 40 - 80
-n_mels: 80
+n_mels: 60
 
 # Training Parameters
 sample_rate: 16000
-number_of_epochs: 70
+number_of_epochs: 10
 batch_size: 32
 n_accents: 8
 emb_dim: 256 # dimensionality of the embeddings
@@ -111,9 +111,9 @@ compute_features: !new:speechbrain.lobes.features.Fbank
     n_mels: !ref <n_mels>
 
 # Mean and std normalization of the input features
-mean_var_norm_input: !new:speechbrain.processing.features.InputNormalization
+mean_var_norm: !new:speechbrain.processing.features.InputNormalization
     norm_type: sentence
-    std_norm: True
+    std_norm: False
 
 # To design a custom model, either just edit the simple CustomModel
 # class that's listed here, or replace this `!new` call with a line
@@ -147,7 +147,7 @@ modules:
     env_corrupt: !ref <env_corrupt>
     augmentation: !ref <augmentation>
     embedding_model: !ref <embedding_model>
-    mean_var_norm_input: !ref <mean_var_norm_input>
+    mean_var_norm: !ref <mean_var_norm>
     classifier: !ref <classifier>
 
 model: !new:torch.nn.ModuleList
@@ -182,7 +182,7 @@ lr_annealing: !new:speechbrain.nnet.schedulers.NewBobScheduler
 checkpointer: !new:speechbrain.utils.checkpoints.Checkpointer
     checkpoints_dir: !ref <save_folder>
     recoverables:
-        normalizer_input: !ref <mean_var_norm_input>
+        normalizer_input: !ref <mean_var_norm>
         embedding_model: !ref <embedding_model>
         classifier: !ref <classifier>
         counter: !ref <epoch_counter>

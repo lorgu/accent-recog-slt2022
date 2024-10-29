@@ -1,1 +1,1 @@
-223078, 31207_HR_MA_099.02,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/HR_MA/31207_HR_MA_099.02.wav,wav, ,0.000,31207
+223078, 31207_HR_MA_099.02,/home/projects/vokquant/data/dilca/processed_16khz_renamed/HR_MA/31207_HR_MA_099.02.wav,wav, ,0.000,31207

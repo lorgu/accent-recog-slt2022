@@ -1,101 +1,101 @@
 ID,utt_id,wav,wav_format,text,duration,accent
-0, 40621_UW_WA_457.02,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/UW_WA/40621_UW_WA_457.02.wav,wav, ,0.000,40621
-1, 70516_MS_WJ_436.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/MS_WJ/70516_MS_WJ_436.01.wav,wav, ,0.000,70516
-2, 80109_FO_WA_141.04,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/FO_WA/80109_FO_WA_141.04.wav,wav, ,0.000,80109
-3, 31035_PU_WJ_142.05,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/PU_WJ/31035_PU_WJ_142.05.wav,wav, ,0.000,31035
-4, 61257_DB_WA_057.01_0,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/DB_WA/61257_DB_WA_057.01_0.wav,wav, ,0.000,61257
-5, 70709_HO_WJ_183.09,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/HO_WJ/70709_HO_WJ_183.09.wav,wav, ,0.000,70709
-6, 20914_SG_MA_446.09,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/SG_MA/20914_SG_MA_446.09.wav,wav, ,0.000,20914
-7, 50413_HU_MJ_116.05_0,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/HU_MJ/50413_HU_MJ_116.05_0.wav,wav, ,0.000,50413
-8, 80128_TS_WA_450.04,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/TS_WA/80128_TS_WA_450.04.wav,wav, ,0.000,80128
-9, 70709_HO_WJ_205.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/HO_WJ/70709_HO_WJ_205.01.wav,wav, ,0.000,70709
-10, 32210_KA_WJ_083.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/KA_WJ/32210_KA_WJ_083.01.wav,wav, ,0.000,32210
-11, 40806_GP_MA_351.01_2,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/GP_MA/40806_GP_MA_351.01_2.wav,wav, ,0.000,40806
-12, 31916_WY_WJ_562.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/WY_WJ/31916_WY_WJ_562.01.wav,wav, ,0.000,31916
-13, 32324_RO_MA_142.09,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/RO_MA/32324_RO_MA_142.09.wav,wav, ,0.000,32324
-14, 62390_ST_MJ_096.02,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/ST_MJ/62390_ST_MJ_096.02.wav,wav, ,0.000,62390
-15, 70908_GI_MA_336.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/GI_MA/70908_GI_MA_336.01.wav,wav, ,0.000,70908
-16, 40719_VI_MA_551.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/VI_MA/40719_VI_MA_551.01.wav,wav, ,0.000,40719
-17, 20604_DL_WJ_333.07,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/DL_WJ/20604_DL_WJ_333.07.wav,wav, ,0.000,20604
-18, 61115_SS_WA_ex_23_29,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/SS_WA/61115_SS_WA_ex_23_29.wav,wav, ,0.000,61115
-19, 70504_BB_WA_151.03,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/BB_WA/70504_BB_WA_151.03.wav,wav, ,0.000,70504
-20, 70326_LH_WA_393.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/LH_WA/70326_LH_WA_393.01.wav,wav, ,0.000,70326
-21, 20914_SG_WJ_073.01_5,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/SG_WJ/20914_SG_WJ_073.01_5.wav,wav, ,0.000,20914
-22, 31035_PU_WA_023.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/PU_WA/31035_PU_WA_023.01.wav,wav, ,0.000,31035
-23, 30910_RC_MJ_402.03_0,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/RC_MJ/30910_RC_MJ_402.03_0.wav,wav, ,0.000,30910
-24, 40621_UW_WJ_170.02,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/UW_WJ/40621_UW_WJ_170.02.wav,wav, ,0.000,40621
-25, 70706_AV_MJ_102.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/AV_MJ/70706_AV_MJ_102.01.wav,wav, ,0.000,70706
-26, 62390_ST_WJ_461.02,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/ST_WJ/62390_ST_WJ_461.02.wav,wav, ,0.000,62390
-27, 40914_RH_MJ_359.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/RH_MJ/40914_RH_MJ_359.01.wav,wav, ,0.000,40914
-28, 50210_RB_WJ_406.02,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/RB_WJ/50210_RB_WJ_406.02.wav,wav, ,0.000,50210
-29, 30719_PK_WA_478.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/PK_WA/30719_PK_WA_478.01.wav,wav, ,0.000,30719
-30, 70622_SW_WA_147.01_0,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/SW_WA/70622_SW_WA_147.01_0.wav,wav, ,0.000,70622
-31, 50210_RB_MJ_164.01_3,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/RB_MJ/50210_RB_MJ_164.01_3.wav,wav, ,0.000,50210
-32, 30910_RC_MA_405.02,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/RC_MA/30910_RC_MA_405.02.wav,wav, ,0.000,30910
-33, 30860_WE_MA_207.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/WE_MA/30860_WE_MA_207.01.wav,wav, ,0.000,30860
-34, 41342_UB_MA_451.03,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/UB_MA/41342_UB_MA_451.03.wav,wav, ,0.000,41342
-35, 31916_WY_MA_503.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/WY_MA/31916_WY_MA_503.01.wav,wav, ,0.000,31916
-36, 10925_EZ_MJ_211.02,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/EZ_MJ/10925_EZ_MJ_211.02.wav,wav, ,0.000,10925
-37, 50502_LE_WA_449.02,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/LE_WA/50502_LE_WA_449.02.wav,wav, ,0.000,50502
-38, 70217_SP_WJ_459.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/SP_WJ/70217_SP_WJ_459.01.wav,wav, ,0.000,70217
-39, 31916_WY_WJ_240.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/WY_WJ/31916_WY_WJ_240.01.wav,wav, ,0.000,31916
-40, 40702_LS_MA_431.02,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/LS_MA/40702_LS_MA_431.02.wav,wav, ,0.000,40702
-41, 70622_SW_WA_336.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/SW_WA/70622_SW_WA_336.01.wav,wav, ,0.000,70622
-42, 60350_RA_MA_290.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/RA_MA/60350_RA_MA_290.01.wav,wav, ,0.000,60350
-43, 41342_UB_MJ2_527.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/UB_MJ2/41342_UB_MJ2_527.01.wav,wav, ,0.000,41342
-44, 31916_WY_WJ_530.01_1,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/WY_WJ/31916_WY_WJ_530.01_1.wav,wav, ,0.000,31916
-45, 50423_WA_MJ_296.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/WA_MJ/50423_WA_MJ_296.01.wav,wav, ,0.000,50423
-46, 70406_KS_MA_450.07,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/KS_MA/70406_KS_MA_450.07.wav,wav, ,0.000,70406
-47, 20914_SG_WJ_383.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/SG_WJ/20914_SG_WJ_383.01.wav,wav, ,0.000,20914
-48, 62135_TU_WJ_405.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/TU_WJ/62135_TU_WJ_405.01.wav,wav, ,0.000,62135
-49, 41804_BC_WA_096.06,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/BC_WA/41804_BC_WA_096.06.wav,wav, ,0.000,41804
-50, 80109_FO_WA_210.02,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/FO_WA/80109_FO_WA_210.02.wav,wav, ,0.000,80109
-51, 70709_HO_MJ_183.10,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/HO_MJ/70709_HO_MJ_183.10.wav,wav, ,0.000,70709
-52, 50413_HU_WJ_042.01_3,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/HU_WJ/50413_HU_WJ_042.01_3.wav,wav, ,0.000,50413
-53, 40914_RH_WA_165.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/RH_WA/40914_RH_WA_165.01.wav,wav, ,0.000,40914
-54, 32210_KA_MJ_068.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/KA_MJ/32210_KA_MJ_068.01.wav,wav, ,0.000,32210
-55, 40402_WZ_WJ_085.01_ATL,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/WZ_WJ/40402_WZ_WJ_085.01_ATL.wav,wav, ,0.000,40402
-56, 40410_GW_MA_486.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/GW_MA/40410_GW_MA_486.01.wav,wav, ,0.000,40410
-57, 70208_HB_MJ_441.03,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/HB_MJ/70208_HB_MJ_441.03.wav,wav, ,0.000,70208
-58, 40806_GP_MJ_441.05,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/GP_MJ/40806_GP_MJ_441.05.wav,wav, ,0.000,40806
-59, 70706_AV_WA_508.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/AV_WA/70706_AV_WA_508.01.wav,wav, ,0.000,70706
-60, 61257_DB_WJ_466.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/DB_WJ/61257_DB_WJ_466.01.wav,wav, ,0.000,61257
-61, 41342_UB_MJ_317.01_ATL,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/UB_MJ/41342_UB_MJ_317.01_ATL.wav,wav, ,0.000,41342
-62, 41102_AR_MJ_196.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/AR_MJ/41102_AR_MJ_196.01.wav,wav, ,0.000,41102
-63, 41342_UB_WA_456.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/UB_WA/41342_UB_WA_456.01.wav,wav, ,0.000,41342
-64, 70334_NS_MJ_338.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/NS_MJ/70334_NS_MJ_338.01.wav,wav, ,0.000,70334
-65, 30501_AB_WA_183.03,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/AB_WA/30501_AB_WA_183.03.wav,wav, ,0.000,30501
-66, 70824_NE_WJ_097.02_4,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/NE_WJ/70824_NE_WJ_097.02_4.wav,wav, ,0.000,70824
-67, 32518_HA_MA_390.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/HA_MA/32518_HA_MA_390.01.wav,wav, ,0.000,32518
-68, 70334_NS_WA_004.01_0,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/NS_WA/70334_NS_WA_004.01_0.wav,wav, ,0.000,70334
-69, 50210_RB_MA_142.02,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/RB_MA/50210_RB_MA_142.02.wav,wav, ,0.000,50210
-70, 31405_KG_MA_146.03,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/KG_MA/31405_KG_MA_146.03.wav,wav, ,0.000,31405
-71, 32309_MT_MJ_196.04,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/MT_MJ/32309_MT_MJ_196.04.wav,wav, ,0.000,32309
-72, 20619_ML_WA_177.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/ML_WA/20619_ML_WA_177.01.wav,wav, ,0.000,20619
-73, 20321_SL_WJ_081.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/SL_WJ/20321_SL_WJ_081.01.wav,wav, ,0.000,20321
-74, 30501_AB_MJ_ex_14_6,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/AB_MJ/30501_AB_MJ_ex_14_6.wav,wav, ,0.000,30501
-75, 50206_KP_MA_241.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/KP_MA/50206_KP_MA_241.01.wav,wav, ,0.000,50206
-76, 21002_PE_WJ_267.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/PE_WJ/21002_PE_WJ_267.01.wav,wav, ,0.000,21002
-77, 31401_AN_WA_048.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/AN_WA/31401_AN_WA_048.01.wav,wav, ,0.000,31401
-78, 70366_WG_MA_124.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/WG_MA/70366_WG_MA_124.01.wav,wav, ,0.000,70366
-79, 80212_EI_MJ_179.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/EI_MJ/80212_EI_MJ_179.01.wav,wav, ,0.000,80212
-80, 70615_NA_MJ_270.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/NA_MJ/70615_NA_MJ_270.01.wav,wav, ,0.000,70615
-81, 32324_RO_MA_319.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/RO_MA/32324_RO_MA_319.01.wav,wav, ,0.000,32324
-82, 50509_TW_MJ_226.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/TW_MJ/50509_TW_MJ_226.01.wav,wav, ,0.000,50509
-83, 41501_AD_MJ_178.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/AD_MJ/41501_AD_MJ_178.01.wav,wav, ,0.000,41501
-84, 31204_GM_MA_390.01_ATL,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/GM_MA/31204_GM_MA_390.01_ATL.wav,wav, ,0.000,31204
-85, 50612_MA_WA_454.03,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/MA_WA/50612_MA_WA_454.03.wav,wav, ,0.000,50612
-86, 80109_FO_WJ_127.01_0,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/FO_WJ/80109_FO_WJ_127.01_0.wav,wav, ,0.000,80109
-87, 32309_MT_MJ_460.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/MT_MJ/32309_MT_MJ_460.01.wav,wav, ,0.000,32309
-88, 80225_LI_WJ_142.09,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/LI_WJ/80225_LI_WJ_142.09.wav,wav, ,0.000,80225
-89, 31405_KG_MJ_195.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/KG_MJ/31405_KG_MJ_195.01.wav,wav, ,0.000,31405
-90, 50212_SC_MJ_493.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/SC_MJ/50212_SC_MJ_493.01.wav,wav, ,0.000,50212
-91, 70406_KS_MJ_031.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/KS_MJ/70406_KS_MJ_031.01.wav,wav, ,0.000,70406
-92, 20619_ML_MA_450.07,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/ML_MA/20619_ML_MA_450.07.wav,wav, ,0.000,20619
-93, 50626_WP_WJ_547.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/WP_WJ/50626_WP_WJ_547.01.wav,wav, ,0.000,50626
-94, 10401_BF_MA_399.03,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/BF_MA/10401_BF_MA_399.03.wav,wav, ,0.000,10401
-95, 70804_BI_WJ_296.02,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/BI_WJ/70804_BI_WJ_296.02.wav,wav, ,0.000,70804
-96, 60350_RA_WA_448.03,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/RA_WA/60350_RA_WA_448.03.wav,wav, ,0.000,60350
-97, 41411_KO_WA_384.01_0,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/KO_WA/41411_KO_WA_384.01_0.wav,wav, ,0.000,41411
-98, 41706_TK_MJ_175.01_1,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/TK_MJ/41706_TK_MJ_175.01_1.wav,wav, ,0.000,41706
-99, 61115_SS_WJ2_118.01,/nas/projects/vokquant/data/dicla/processed_16khz_renamed/SS_WJ2/61115_SS_WJ2_118.01.wav,wav, ,0.000,61115
+0,80411_LA_MA_121.03_ATL_spk_25,/home/projects/vokquant/data/dicla/augmented/LA_MA/80411_LA_MA_121.03_ATL_spk_25.wav,wav,,1.42,80411
+1,80128_TS_MA_122.06,/home/projects/vokquant/data/dicla/augmented/TS_MA/80128_TS_MA_122.06.wav,wav,,3.937,80128
+2,62135_TU_MA_538.01_spk_47,/home/projects/vokquant/data/dicla/augmented/TU_MA/62135_TU_MA_538.01_spk_47.wav,wav,,2.1,62135
+3,10903_DS_MA_208.01_spk_39,/home/projects/vokquant/data/dicla/augmented/DS_MA/10903_DS_MA_208.01_spk_39.wav,wav,,1.08,10903
+4,80109_FO_WJ_356.01_spk_39,/home/projects/vokquant/data/dicla/augmented/FO_WJ/80109_FO_WJ_356.01_spk_39.wav,wav,,1.82,80109
+5,30501_AB_MJ_450.07_spk_44,/home/projects/vokquant/data/dicla/augmented/AB_MJ/30501_AB_MJ_450.07_spk_44.wav,wav,,1.16,30501
+6,70622_SW_WJ_394.01_ATL,/home/projects/vokquant/data/dicla/augmented/SW_WJ/70622_SW_WJ_394.01_ATL.wav,wav,,1.445,70622
+7,31110_IR_MA_426.01_spk_22,/home/projects/vokquant/data/dicla/augmented/IR_MA/31110_IR_MA_426.01_spk_22.wav,wav,,1.3,31110
+8,60350_RA_WA_173.01,/home/projects/vokquant/data/dicla/augmented/RA_WA/60350_RA_WA_173.01.wav,wav,,1.131,60350
+9,50206_KP_MA_413.01,/home/projects/vokquant/data/dicla/augmented/KP_MA/50206_KP_MA_413.01.wav,wav,,1.63,50206
+10,10702_AP_WJ_467.01,/home/projects/vokquant/data/dicla/augmented/AP_WJ/10702_AP_WJ_467.01.wav,wav,,1.018,10702
+11,61251_WN_MJ_212.01,/home/projects/vokquant/data/dicla/augmented/WN_MJ/61251_WN_MJ_212.01.wav,wav,,1.319,61251
+12,70516_MS_WA_427.02_spk_42,/home/projects/vokquant/data/dicla/augmented/MS_WA/70516_MS_WA_427.02_spk_42.wav,wav,,1.72,70516
+13,70825_PF_WA_361.01_5_spk_11,/home/projects/vokquant/data/dicla/augmented/PF_WA/70825_PF_WA_361.01_5_spk_11.wav,wav,,1.36,70825
+14,31814_KB_WA_163.03_spk_7,/home/projects/vokquant/data/dicla/augmented/KB_WA/31814_KB_WA_163.03_spk_7.wav,wav,,2.18,31814
+15,80109_FO_MA_450.08_spk_47,/home/projects/vokquant/data/dicla/augmented/FO_MA/80109_FO_MA_450.08_spk_47.wav,wav,,1.04,80109
+16,31652_US_MJ_123.01_spk_29,/home/projects/vokquant/data/dicla/augmented/US_MJ/31652_US_MJ_123.01_spk_29.wav,wav,,1.26,31652
+17,50626_WP_MA_135.01,/home/projects/vokquant/data/dicla/augmented/WP_MA/50626_WP_MA_135.01.wav,wav,,2.045,50626
+18,70208_HB_WA_333.10,/home/projects/vokquant/data/dicla/augmented/HB_WA/70208_HB_WA_333.10.wav,wav,,1.615,70208
+19,32210_KA_MA_228.01,/home/projects/vokquant/data/dicla/augmented/KA_MA/32210_KA_MA_228.01.wav,wav,,1.623,32210
+20,61743_RE_MA_144.08,/home/projects/vokquant/data/dicla/augmented/RE_MA/61743_RE_MA_144.08.wav,wav,,1.063,61743
+21,70402_BX_WA_176.01_spk_15,/home/projects/vokquant/data/dicla/augmented/BX_WA/70402_BX_WA_176.01_spk_15.wav,wav,,1.32,70402
+22,70221_SQ_MJ_385.01_spk_17,/home/projects/vokquant/data/dicla/augmented/SQ_MJ/70221_SQ_MJ_385.01_spk_17.wav,wav,,2.08,70221
+23,70824_NE_WJ_333.06,/home/projects/vokquant/data/dicla/augmented/NE_WJ/70824_NE_WJ_333.06.wav,wav,,3.142,70824
+24,50210_RB_WJ_131.01_spk_14,/home/projects/vokquant/data/dicla/augmented/RB_WJ/50210_RB_WJ_131.01_spk_14.wav,wav,,1.04,50210
+25,80109_FO_WJ_484.01_0_spk_8,/home/projects/vokquant/data/dicla/augmented/FO_WJ/80109_FO_WJ_484.01_0_spk_8.wav,wav,,1.64,80109
+26,70706_AV_MJ_281.01_spk_5,/home/projects/vokquant/data/dicla/augmented/AV_MJ/70706_AV_MJ_281.01_spk_5.wav,wav,,1.22,70706
+27,20321_SL_WA_345.01,/home/projects/vokquant/data/dicla/augmented/SL_WA/20321_SL_WA_345.01.wav,wav,,1.556,20321
+28,31551_TX_MA_502.01,/home/projects/vokquant/data/dicla/augmented/TX_MA/31551_TX_MA_502.01.wav,wav,,5.169,31551
+29,31035_PU_WJ_190.01_spk_26,/home/projects/vokquant/data/dicla/augmented/PU_WJ/31035_PU_WJ_190.01_spk_26.wav,wav,,1.3,31035
+30,80411_LA_MA_235.01_spk_18,/home/projects/vokquant/data/dicla/augmented/LA_MA/80411_LA_MA_235.01_spk_18.wav,wav,,1.38,80411
+31,50506_RS_MA_127.01,/home/projects/vokquant/data/dicla/augmented/RS_MA/50506_RS_MA_127.01.wav,wav,,1.435,50506
+32,31617_AT_MA_119.02,/home/projects/vokquant/data/dicla/augmented/AT_MA/31617_AT_MA_119.02.wav,wav,,1.001,31617
+33,31652_US_MA_319.03,/home/projects/vokquant/data/dicla/augmented/US_MA/31652_US_MA_319.03.wav,wav,,1.115,31652
+34,41804_BC_WA_506.01,/home/projects/vokquant/data/dicla/augmented/BC_WA/41804_BC_WA_506.01.wav,wav,,2.78,41804
+35,61115_SS_MJ_422.03_spk_8,/home/projects/vokquant/data/dicla/augmented/SS_MJ/61115_SS_MJ_422.03_spk_8.wav,wav,,1.02,61115
+36,41342_UB_MA_045.01_1,/home/projects/vokquant/data/dicla/augmented/UB_MA/41342_UB_MA_045.01_1.wav,wav,,1.535,41342
+37,40806_GP_WA_364.01_2_spk_42,/home/projects/vokquant/data/dicla/augmented/GP_WA/40806_GP_WA_364.01_2_spk_42.wav,wav,,2.44,40806
+38,70825_PF_WA_118.02_spk_27,/home/projects/vokquant/data/dicla/augmented/PF_WA/70825_PF_WA_118.02_spk_27.wav,wav,,1.56,70825
+39,50626_WP_MA_006.01_spk_41,/home/projects/vokquant/data/dicla/augmented/WP_MA/50626_WP_MA_006.01_spk_41.wav,wav,,9.3,50626
+40,61756_FA_MA_426.04,/home/projects/vokquant/data/dicla/augmented/FA_MA/61756_FA_MA_426.04.wav,wav,,1.406,61756
+41,60350_RA_MA_441.07_spk_31,/home/projects/vokquant/data/dicla/augmented/RA_MA/60350_RA_MA_441.07_spk_31.wav,wav,,1.74,60350
+42,41804_BC_WA_537.02,/home/projects/vokquant/data/dicla/augmented/BC_WA/41804_BC_WA_537.02.wav,wav,,4.633,41804
+43,31110_IR_MA_216.01,/home/projects/vokquant/data/dicla/augmented/IR_MA/31110_IR_MA_216.01.wav,wav,,1.087,31110
+44,20604_DL_MA_458.04,/home/projects/vokquant/data/dicla/augmented/DL_MA/20604_DL_MA_458.04.wav,wav,,1.102,20604
+45,70804_BI_WJ_169.04,/home/projects/vokquant/data/dicla/augmented/BI_WJ/70804_BI_WJ_169.04.wav,wav,,1.232,70804
+46,70362_VA_MJ_478.01,/home/projects/vokquant/data/dicla/augmented/VA_MJ/70362_VA_MJ_478.01.wav,wav,,1.454,70362
+47,61254_AI_WA_357.01,/home/projects/vokquant/data/dicla/augmented/AI_WA/61254_AI_WA_357.01.wav,wav,,2.625,61254
+48,41804_BC_MJ_300.01_spk_19,/home/projects/vokquant/data/dicla/augmented/BC_MJ/41804_BC_MJ_300.01_spk_19.wav,wav,,1.04,41804
+49,70406_KS_MA_034.01_spk_28,/home/projects/vokquant/data/dicla/augmented/KS_MA/70406_KS_MA_034.01_spk_28.wav,wav,,3.56,70406
+50,41706_TK_WA_441.01,/home/projects/vokquant/data/dicla/augmented/TK_WA/41706_TK_WA_441.01.wav,wav,,2.294,41706
+51,70334_NS_MA_042.01,/home/projects/vokquant/data/dicla/augmented/NS_MA/70334_NS_MA_042.01.wav,wav,,3.994,70334
+52,50506_RS_MA_329.01,/home/projects/vokquant/data/dicla/augmented/RS_MA/50506_RS_MA_329.01.wav,wav,,7.343,50506
+53,32309_MT_MJ_059.01,/home/projects/vokquant/data/dicla/augmented/MT_MJ/32309_MT_MJ_059.01.wav,wav,,1.324,32309
+54,61756_FA_WJ_388.01,/home/projects/vokquant/data/dicla/augmented/FA_WJ/61756_FA_WJ_388.01.wav,wav,,1.681,61756
+55,70709_HO_MA_018.01_3,/home/projects/vokquant/data/dicla/augmented/HO_MA/70709_HO_MA_018.01_3.wav,wav,,1.907,70709
+56,31652_US_MJ_448.01_spk_34,/home/projects/vokquant/data/dicla/augmented/US_MJ/31652_US_MJ_448.01_spk_34.wav,wav,,1.16,31652
+57,20619_ML_WJ_347.01_spk_9,/home/projects/vokquant/data/dicla/augmented/ML_WJ/20619_ML_WJ_347.01_spk_9.wav,wav,,2.08,20619
+58,40621_UW_MA_112.01_spk_48,/home/projects/vokquant/data/dicla/augmented/UW_MA/40621_UW_MA_112.01_spk_48.wav,wav,,1.02,40621
+59,40702_LS_WA_250.01_spk_28,/home/projects/vokquant/data/dicla/augmented/LS_WA/40702_LS_WA_250.01_spk_28.wav,wav,,1.68,40702
+60,50210_RB_MA_183.08_spk_25,/home/projects/vokquant/data/dicla/augmented/RB_MA/50210_RB_MA_183.08_spk_25.wav,wav,,1.06,50210
+61,31401_AN_WA_003.01_spk_40,/home/projects/vokquant/data/dicla/augmented/AN_WA/31401_AN_WA_003.01_spk_40.wav,wav,,1.26,31401
+62,10925_EZ_MA_540.02_0,/home/projects/vokquant/data/dicla/augmented/EZ_MA/10925_EZ_MA_540.02_0.wav,wav,,2.177,10925
+63,40806_GP_WA_344.01,/home/projects/vokquant/data/dicla/augmented/GP_WA/40806_GP_WA_344.01.wav,wav,,4.659,40806
+64,41342_UB_WJ_020.01_5,/home/projects/vokquant/data/dicla/augmented/UB_WJ/41342_UB_WJ_020.01_5.wav,wav,,3.291,41342
+65,50621_SU_MA_141.02_spk_6,/home/projects/vokquant/data/dicla/augmented/SU_MA/50621_SU_MA_141.02_spk_6.wav,wav,,1.14,50621
+66,70734_VR_MA_206.02_spk_27,/home/projects/vokquant/data/dicla/augmented/VR_MA/70734_VR_MA_206.02_spk_27.wav,wav,,1.04,70734
+67,80128_TS_MJ_427.02,/home/projects/vokquant/data/dicla/augmented/TS_MJ/80128_TS_MJ_427.02.wav,wav,,1.146,80128
+68,70406_KS_MA_501.01_spk_21,/home/projects/vokquant/data/dicla/augmented/KS_MA/70406_KS_MA_501.01_spk_21.wav,wav,,2.88,70406
+69,61115_SS_WA_150.01_spk_18,/home/projects/vokquant/data/dicla/augmented/SS_WA/61115_SS_WA_150.01_spk_18.wav,wav,,1.12,61115
+70,10702_AP_WA_163.06,/home/projects/vokquant/data/dicla/augmented/AP_WA/10702_AP_WA_163.06.wav,wav,,1.47,10702
+71,70824_NE_MJ_478.01,/home/projects/vokquant/data/dicla/augmented/NE_MJ/70824_NE_MJ_478.01.wav,wav,,2.142,70824
+72,70402_BX_WA_116.05,/home/projects/vokquant/data/dicla/augmented/BX_WA/70402_BX_WA_116.05.wav,wav,,1.406,70402
+73,31035_PU_MA_358.01,/home/projects/vokquant/data/dicla/augmented/PU_MA/31035_PU_MA_358.01.wav,wav,,3.591,31035
+74,32210_KA_WA_454.07_spk_18,/home/projects/vokquant/data/dicla/augmented/KA_WA/32210_KA_WA_454.07_spk_18.wav,wav,,1.02,32210
+75,20622_MO_MJ_033.01_ATL,/home/projects/vokquant/data/dicla/augmented/MO_MJ/20622_MO_MJ_033.01_ATL.wav,wav,,1.75,20622
+76,40702_LS_WA_432.02,/home/projects/vokquant/data/dicla/augmented/LS_WA/40702_LS_WA_432.02.wav,wav,,1.097,40702
+77,30501_AB_MJ_479.01_spk_30,/home/projects/vokquant/data/dicla/augmented/AB_MJ/30501_AB_MJ_479.01_spk_30.wav,wav,,1.82,30501
+78,61257_DB_WA_372.01_spk_17,/home/projects/vokquant/data/dicla/augmented/DB_WA/61257_DB_WA_372.01_spk_17.wav,wav,,2.52,61257
+79,62216_GH_MJ_191.01_spk_34,/home/projects/vokquant/data/dicla/augmented/GH_MJ/62216_GH_MJ_191.01_spk_34.wav,wav,,1.38,62216
+80,70627_SR_MJ_233.01_spk_42,/home/projects/vokquant/data/dicla/augmented/SR_MJ/70627_SR_MJ_233.01_spk_42.wav,wav,,1.84,70627
+81,62390_ST_MJ_481.01_spk_25,/home/projects/vokquant/data/dicla/augmented/ST_MJ/62390_ST_MJ_481.01_spk_25.wav,wav,,1.6,62390
+82,40702_LS_WJ_142.01_spk_6,/home/projects/vokquant/data/dicla/augmented/LS_WJ/40702_LS_WJ_142.01_spk_6.wav,wav,,1.82,40702
+83,50210_RB_WA_524.01_spk_38,/home/projects/vokquant/data/dicla/augmented/RB_WA/50210_RB_WA_524.01_spk_38.wav,wav,,2.52,50210
+84,50210_RB_WJ_005.01_2_spk_30,/home/projects/vokquant/data/dicla/augmented/RB_WJ/50210_RB_WJ_005.01_2_spk_30.wav,wav,,2.64,50210
+85,61628_GT_MA_151.02,/home/projects/vokquant/data/dicla/augmented/GT_MA/61628_GT_MA_151.02.wav,wav,,1.542,61628
+86,50206_KP_MJ_182.02,/home/projects/vokquant/data/dicla/augmented/KP_MJ/50206_KP_MJ_182.02.wav,wav,,1.715,50206
+87,80411_LA_WJ_039.01_15_spk_9,/home/projects/vokquant/data/dicla/augmented/LA_WJ/80411_LA_WJ_039.01_15_spk_9.wav,wav,,3.3,80411
+88,31110_IR_MJ_537.02,/home/projects/vokquant/data/dicla/augmented/IR_MJ/31110_IR_MJ_537.02.wav,wav,,1.446,31110
+89,50210_RB_WJ_353.01,/home/projects/vokquant/data/dicla/augmented/RB_WJ/50210_RB_WJ_353.01.wav,wav,,1.926,50210
+90,50210_RB_WA_316.03,/home/projects/vokquant/data/dicla/augmented/RB_WA/50210_RB_WA_316.03.wav,wav,,1.142,50210
+91,70615_NA_MA_536.01,/home/projects/vokquant/data/dicla/augmented/NA_MA/70615_NA_MA_536.01.wav,wav,,2.697,70615
+92,50206_KP_MJ_348.01,/home/projects/vokquant/data/dicla/augmented/KP_MJ/50206_KP_MJ_348.01.wav,wav,,1.379,50206
+93,70217_SP_MA_304.02_spk_3,/home/projects/vokquant/data/dicla/augmented/SP_MA/70217_SP_MA_304.02_spk_3.wav,wav,,2.5,70217
+94,20321_SL_WA_215.01,/home/projects/vokquant/data/dicla/augmented/SL_WA/20321_SL_WA_215.01.wav,wav,,1.246,20321
+95,31652_US_MA_313.02_spk_23,/home/projects/vokquant/data/dicla/augmented/US_MA/31652_US_MA_313.02_spk_23.wav,wav,,1.02,31652
+96,70615_NA_MA_130.01_1_spk_32,/home/projects/vokquant/data/dicla/augmented/NA_MA/70615_NA_MA_130.01_1_spk_32.wav,wav,,2.04,70615
+97,40702_LS_WA_179.03,/home/projects/vokquant/data/dicla/augmented/LS_WA/40702_LS_WA_179.03.wav,wav,,1.556,40702
+98,40423_MI_MA_144.08,/home/projects/vokquant/data/dicla/augmented/MI_MA/40423_MI_MA_144.08.wav,wav,,1.036,40423
+99,70804_BI_WJ_127.01,/home/projects/vokquant/data/dicla/augmented/BI_WJ/70804_BI_WJ_127.01.wav,wav,,1.167,70804
