@@ -12,8 +12,8 @@ __set_seed: !apply:torch.manual_seed [!ref <seed>]
 # Set up folders for reading from and writing to
 # Dataset will be downloaded to the `data_folder`
 # data_folder: !PLACEHOLDER # e.g. /localscratch/common_voice_kpd/
-# data_folder: /nas/projects/vokquant/data/common_voice_de/downloaded
-# csv_prepared_folder: /nas/projects/vokquant/accent-recog-slt2022/data/de
+# data_folder: /home/projects/vokquant/data/common_voice_de/downloaded
+# csv_prepared_folder: /home/projects/vokquant/accent-recog-slt2022/data/de
 data_folder: /content/cv-corpus-11.0-2022-09-21/de/clips
 csv_prepared_folder: /content/accent-recog-slt2022/data
 output_folder: !ref results/ECAPA-TDNN/<seed>
