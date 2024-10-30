@@ -172,7 +172,7 @@ class AID(sb.Brain):
                 distance_factor = 0.02
                 loss += distance * distance_factor
         print("loss after distance penalty: ", loss)
-        ipdb.set_trace()
+        # ipdb.set_trace()
         # append the metrics for evaluation
         if stage != sb.Stage.TRAIN:
             # ipdb.set_trace()
