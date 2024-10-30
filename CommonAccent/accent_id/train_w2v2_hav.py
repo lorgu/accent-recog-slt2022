@@ -155,7 +155,7 @@ class AID(sb.Brain):
         # gemeinde_df = pd.read_csv(gemeinde_csv)
 
         # Calculate distance penalty
-        print("loss: ", loss)
+        # print("loss: ", loss)
         for i in range(len(targets)):
             true_class = targets[i].item()
             predicted_class = predictions.argmax(dim=1)[i].item()
@@ -171,7 +171,7 @@ class AID(sb.Brain):
                 # distance_factor = hparams["distance_penalty_weight"]  # You can scale the distance as needed
                 distance_factor = 0.02
                 loss += distance * distance_factor
-        print("loss after distance penalty: ", loss)
+        # print("loss after distance penalty: ", loss)
         # ipdb.set_trace()
         # append the metrics for evaluation
         if stage != sb.Stage.TRAIN:
