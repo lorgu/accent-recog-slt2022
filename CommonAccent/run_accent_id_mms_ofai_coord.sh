@@ -19,7 +19,7 @@ if [ -f $config_file ]; then
 fi
 
 # model from HF hub, it could be another one, e.g., facebook/wav2vec2-base
-wav2vec2_hub="facebook/mms-lid-126"
+wav2vec2_hub="facebook/mms-lid-256"
 seed="101"
 apply_augmentation="True"
 max_batch_len=10
