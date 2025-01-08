@@ -127,7 +127,29 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-notebooks/pratrained_models
-notebooks/pratrained_models/*
+notebooks/pretrained_models
+notebooks/pretrained_models/*
 notebooks/data
 notebooks/*.wav
+CommonAccent/model_checkpoints/
+CommonAccent/notebooks
+
+# Ignore directories
+notebooks/cache/
+notebooks/model_checkpoints/
+notebooks/natural_earth_data/
+notebooks/pickle_files/
+notebooks/save/
+notebooks/tmp/
+notebooks/tmp_voxlingua/
+notebooks/tmp_voxlingua2/
+notebooks/trained_model_checkpoint_voxlingua/
+notebooks/wav2vec2_checkpoints/
+results/
+
+# Ignore specific files
+CommonAccent/accent_id/train copy.py
+dicla_torch2.yaml
+requirements2.txt
+notebooks/convert_to_mono.ipynb
+

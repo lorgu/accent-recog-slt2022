@@ -5,3 +5,8 @@ common_voice_11_0/**
 
 accent_id/notebooks/**
 accent_id/hparams/backup
+accent_id/model_checkpoints_old/
+accent_id/wav2vec2_checkpoint/
+accent_id/model_checkpoints/
+accent_id/notenooks/pretrained_models/
+../notebooks/pretrained_models/
