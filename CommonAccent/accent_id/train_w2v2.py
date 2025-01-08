@@ -141,8 +141,8 @@ class AID(sb.Brain):
             #     self.hparams.lr_annealing.on_batch_end(self.optimizer)
         
         # save embeddings
-        export_embeddings = False
-        if export_embeddings:
+        export_embeddings = True
+        if export_embeddings and stage == sb.Stage.TEST:
             self.save_embeddings_and_labels(embeddings, targets, stage)
         # get the final loss
         loss = self.hparams.compute_cost(predictions, targets)
@@ -157,8 +157,8 @@ class AID(sb.Brain):
             self.acc_metric.append(predictions, targets.view(1, -1), lens)
             self.acc_metric2.append(predictions.argmax(-1), targets.view(1, -1), lens)
         
-        export_predictions = False
-        if export_predictions:
+        export_predictions = True
+        if export_predictions and stage == sb.Stage.TEST:
             self.save_predictions(batch.id, predictions, targets, lens)
         
         return loss
@@ -637,7 +637,7 @@ if __name__ == "__main__":
 
     # Load the best checkpoint for evaluation
     test_stats = aid_brain.evaluate(
-        test_set=valid_data,
+        test_set=test_data,
         min_key="error_rate",
         test_loader_kwargs=hparams["test_dataloader_opts"],
     )

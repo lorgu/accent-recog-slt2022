@@ -137,23 +137,16 @@ class AID(sb.Brain):
             #     self.hparams.lr_annealing.on_batch_end(self.optimizer)
         
         # save embeddings
-        export_embeddings = False
-        if export_embeddings:
+        export_embeddings = True
+        if export_embeddings and stage == sb.Stage.TEST:
             self.save_embeddings_and_labels(embeddings, targets, stage)
         
         # get the final loss
         loss = self.hparams.compute_cost(predictions, targets)
         
-        # Get class coordinates (longitude and latitude)
-        # get encoded accents and map to accents
-        # accents_encoder_test = sb.dataio.encoder.CategoricalEncoder()
-        # accents_encoder_test.load(path=os.path.join(hparams["save_folder"], "accent_encoder.txt"))
+        # Calculate distance penalty
         accents_batch_targets = self.accents_encoder.decode_torch(targets)
         accents_batch_predictions = self.accents_encoder.decode_torch(predictions.argmax(dim=1))
-        # map accents to coordinates
-        # gemeinde_csv = "/home/projects/vokquant/accent-recog-slt2022/CommonAccent/data/gemeinde_coordinates.csv"
-        # gemeinde_df = pd.read_csv(gemeinde_csv)
-
         # Calculate distance penalty
         # print("loss: ", loss)
         for i in range(len(targets)):
@@ -166,10 +159,17 @@ class AID(sb.Brain):
                 lat2 = self.gemeinde_df[self.gemeinde_df['Gemeindekennzahl'] == int(accents_batch_predictions[i])]['Latitude'].values[0]
                 lon2 = self.gemeinde_df[self.gemeinde_df['Gemeindekennzahl'] == int(accents_batch_predictions[i])]['Longitude'].values[0]
                 distance = haversine(lat1, lon1, lat2, lon2)
-                
                 # Adding distance to the loss
                 # distance_factor = hparams["distance_penalty_weight"]  # You can scale the distance as needed
-                distance_factor = 0.02
+                
+                normalize_distance = False   # if True this will kind of set the distance_factor to 1/575
+                if normalize_distance == True:
+                    max_distance = 575
+                    normalized_distance = distance / max_distance
+                    distance = normalized_distance
+                    distance_factor = 1
+                else:
+                    distance_factor = 0.02  # same as normalizing but higher value [instead of (1/575)=0.001739]
                 loss += distance * distance_factor
         # print("loss after distance penalty: ", loss)
         # ipdb.set_trace()
@@ -184,8 +184,8 @@ class AID(sb.Brain):
             self.acc_metric.append(predictions, targets.view(1, -1), lens)
             self.acc_metric2.append(predictions.argmax(-1), targets.view(1, -1), lens)
         
-        export_predictions = False
-        if export_predictions:
+        export_predictions = True
+        if export_predictions and stage == sb.Stage.TEST:
             self.save_predictions(batch.id, predictions, targets, lens)
         
         return loss
@@ -642,7 +642,7 @@ if __name__ == "__main__":
 
     # Load the best checkpoint for evaluation
     test_stats = aid_brain.evaluate(
-        test_set=valid_data,
+        test_set=test_data,
         min_key="error_rate",
         test_loader_kwargs=hparams["test_dataloader_opts"],
     )
