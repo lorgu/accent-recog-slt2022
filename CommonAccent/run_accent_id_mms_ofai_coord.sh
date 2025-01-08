@@ -48,7 +48,7 @@ fi
 echo "*** About to start the training ***"
 echo "*** output folder: $output_folder ***"
 
-$cmd python3 accent_id/train_w2v2_coord_mms.py accent_id/hparams/mms_cv_fold/train_mms_ofai_coord_fold_1.yaml \
+$cmd python3 accent_id/train_w2v2_coord_mms.py accent_id/hparams/mms_cv_fold/train_mms_ofai_coord_fold.yaml \
     --seed=$seed \
     --skip_prep="True" \
     --rir_folder="$rir_folder" \
